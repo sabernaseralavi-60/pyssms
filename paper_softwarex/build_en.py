@@ -94,8 +94,8 @@ def blocks(items: list, count: str = "text") -> str:
         elif kind == "fig":
             _, key, fname, cap = b
             shutil.copy(HERE / "figures" / f"{fname}.pdf", OUT / "figures" / f"{fname}.pdf")
-            out.append("\\begin{figure}[!ht]\n\\centering\n"
-                       f"\\includegraphics[width=0.97\\textwidth]{{figures/{fname}.pdf}}\n"
+            out.append("\\begin{figure}[!htbp]\n\\centering\n"
+                       f"\\includegraphics[width=\\textwidth]{{figures/{fname}.pdf}}\n"
                        f"\\caption{{{tex(cap, count)}}}\n\\label{{fig:{key}}}\n\\end{{figure}}\n")
     return "\n".join(out)
 

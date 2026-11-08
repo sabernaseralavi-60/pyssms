@@ -39,6 +39,11 @@ REFS = {
     "naseralavi2025": "Naseralavi S, Soltanirad M, Ranjbar E, Jimee K, Lucero M, Baghersad M, et al. A short-term storytelling framework for understanding surrogate safety measures in intelligent vehicle interactions. Future Transp 2025;5:86. https://doi.org/10.3390/futuretransp5030086.",
     "saunier": "Saunier N. Traffic Intelligence: tools for transportation data processing [software], MIT licence. Python Package Index. https://pypi.org/project/trafficintelligence/ (accessed 2026-11-07).",
     "jiao": "Jiao Y. Two-Dimensional-Time-To-Collision [software], MIT licence. GitHub. https://github.com/Yiru-Jiao/Two-Dimensional-Time-To-Collision (accessed 2026-11-07).",
+    "jackson2013": "Jackson S, Miranda-Moreno LF, St-Aubin P, Saunier N. Flexible, mobile video camera system and open source video analysis software for road safety and behavioral analysis. Transp Res Rec 2013;2365:90-8. https://doi.org/10.3141/2365-12.",
+    "lin2023": "Lin Y, Althoff M. CommonRoad-CriMe: a toolbox for criticality measures of autonomous vehicles. In: 2023 IEEE Intelligent Vehicles Symposium (IV); 2023. p. 1-8. https://doi.org/10.1109/IV55152.2023.10186673.",
+    "jiao2025": "Jiao Y. Vectorised surrogate safety measures for traffic interactions in two-dimensional space [software], MIT licence. GitHub; 2025. https://github.com/Yiru-Jiao/SSMsOnPlane (accessed 2026-11-08).",
+    "venthuruthiyil2022": "Venthuruthiyil SP, Chunchu M. Anticipated collision time (ACT): a two-dimensional surrogate safety indicator for trajectory-based proactive safety assessment. Transp Res Part C 2022;139:103655. https://doi.org/10.1016/j.trc.2022.103655.",
+    "cheng2025": "Cheng H, Jiang Y, Zhang H, Chen K, Huang H, Xu S, et al. Emergency index (EI): a two-dimensional surrogate safety measure considering vehicles' interaction depth. Transp Res Part C 2025;171:104981. https://doi.org/10.1016/j.trc.2024.104981.",
     "odonnell1989": "O'Donnell PA, Lozano-Pérez T. Deadlock-free and collision-free coordination of two robot manipulators. In: Proceedings, 1989 International Conference on Robotics and Automation; 1989. p. 484-9. https://doi.org/10.1109/robot.1989.100033.",
     "kant1986": "Kant K, Zucker SW. Toward efficient trajectory planning: the path-velocity decomposition. Int J Robot Res 1986;5:72-89. https://doi.org/10.1177/027836498600500304.",
     "jimenez2013": "Jiménez F, Naranjo JE, García F. An improved method to calculate the time-to-collision of two vehicles. Int J Intell Transp Syst Res 2013;11:34-42. https://doi.org/10.1007/s13177-012-0054-4.",
@@ -50,7 +55,7 @@ REFS = {
     "westhofen2023": "Westhofen L, Neurohr C, Koopmann T, Butz M, Schütt B, Utesch F, et al. Criticality metrics for automated driving: a review and suitability analysis of the state of the art. Arch Comput Methods Eng 2023;30:1-35. https://doi.org/10.1007/s11831-022-09788-7.",
 }
 if ZENODO_DOI:
-    REFS["pyssms_zenodo"] = (f"Naseralavi SS. pyssms: surrogate safety indicators for road-user encounters on a time-time conflict polygon [software]. "
+    REFS["pyssms_zenodo"] = (f"Naseralavi SS, Mazaheri A. pyssms: surrogate safety indicators for road-user encounters on a time-time conflict polygon [software]. "
                              f"Version {VERSION}. Zenodo; 2026. https://doi.org/{ZENODO_DOI}.")
 
 # ----------------------------------------------------------------------------------------------------------------- English
@@ -98,10 +103,15 @@ EN["sections"]["motivation"] = [
           "story each one assumes: constant speeds, accelerations or jerks for TTC1, TTC2 and TTC3, a braking leader for TTCD, and braking of "
           "the follower for DRAC, MDRAC, DCIA, PSD, MPSD and SDI. The first is geometric and works for crossings and merges; the second is "
           "kinematic and works along a lane. Each is usually implemented, if at all, on its own and for one data set."),
-    ("p", "Related open software: Traffic Intelligence [@saunier] processes trajectories and motion predictions, and a "
-          "vectorised two-dimensional TTC is published on GitHub [@jiao]. A light search on 2026-11-01 (not a systematic review) found no "
-          "package that reads the two-dimensional indicators of the 2010 paper for any shape and angle together with the ten car-following "
-          "measures and the file formats of the common data sets. pyssms is written to close that gap. It (i) reads trajectories, (ii) "
+    ("p", "Related open software: Traffic Intelligence [@jackson2013,@saunier] processes road-safety trajectories and motion predictions, and "
+          "CommonRoad-CriMe [@lin2023] collects criticality measures for automated-vehicle scenarios. For rectangles, vectorised Python code "
+          "computes the time to collision, the deceleration rate, the proportion of stopping distance, TAdv, a two-dimensional TTC and the "
+          "anticipated collision time [@jiao,@jiao2025,@venthuruthiyil2022]; the emergency index is published with its authors' code [@cheng2025]. "
+          "In the source read on 2026-11-08, the TAdv of that code takes corner-to-corner intersections of the velocity lines, returns neither T2 nor TG, "
+          "and comes without file readers or a hierarchy of encounters. A documented search on 2026-11-08 of the Python Package Index, GitHub, Crossref "
+          "and OpenAlex (log in the repository, docs/lit) found no package that provides TTC, TAdv, T2 and TG of the 2010 paper from one polygon "
+          "together with the ten car-following measures and the file formats of the common data sets; it is a search, not a systematic review, "
+          "and the absence of other tools cannot be proved. pyssms is written to close that gap. It (i) reads trajectories, (ii) "
           "computes TTC, TAdv, T2 and TG exactly on one conflict polygon, (iii) computes the ten car-following measures, (iv) names the faces "
           "and corners that touch, (v) summarises encounters in a hierarchy, and (vi) ships a small bank of conflict windows for tests and "
           "teaching. Its numbers are checked against the printed procedure, against simulations and against the data sets' own columns."),
@@ -229,7 +239,7 @@ EN["sections"]["examples"] = [
           "horizon; in the other {{highd/poly_missing_share:.0f}} % the two bodies miss each other in two dimensions although TTC1 is finite."),
     ("fig", "rho", "fig5_correlations",
      "Spearman rank correlation between the ten car-following measures (rows, grouped by motion story; ▲ more critical when larger, ▼ when smaller) "
-     "and polygon-based indicators (columns), pairwise on defined values. Required braking is the smallest constant deceleration that avoids a contact "
+     "and polygon-based indicators (columns; TTC poly is the polygon TTC), pairwise on defined values. Required braking (req. brak.) is the smallest constant deceleration that avoids a contact "
      "within the horizon (module escape). Outlined cells: correlation of 0.90 or more after rounding to two decimals. TTC1 enters only where it exists, "
      "and SDI is binary."),
     ("p", "Checks guard the reading. On highD the clear gap computed by pyssms equals the data set's own headway within {{highd/gap_abs_max:.3f}} m. "
@@ -268,7 +278,7 @@ EN["sections"]["impact"] = [
           "counts of encounters per level are in place. Such a validation was named the most critical next step of the car-following framework [@naseralavi2025]; "
           "evasive-action onset is a candidate outcome [@johnsson2022]. It has not been done here, and the examples above must not be read as one."),
     ("p", "The software is young. Version {{version}} is the initial release of the package; it has no record of use outside the authors' own work and "
-          "no citations yet, and it is installed from its repository rather than from a package index. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative "
+          "no citations yet, and it is installed with pip from the Python Package Index or from its repository. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative "
           "Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The "
           "limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning "
           "vehicle is predicted along its current heading; the ten car-following measures are one-dimensional and need a leader and a follower "
@@ -295,7 +305,7 @@ EN["competing"] = "The authors declare that they have no known competing financi
 EN["data"] = ("The code is available at " + REPO + " (BSD 3-Clause licence)" + (", and version " + VERSION + " is archived on Zenodo [@pyssms_zenodo]" if ZENODO_DOI else "") + ". The shipped NGSIM windows come from the Federal Highway Administration "
               "NGSIM data under a modified Creative Commons Attribution 2.0 licence (credit FHWA and NGSIM). The LevelX data sets are available from their "
               "providers on request; only aggregated counts are shipped. The numbers of this paper are reproduced by paper_softwarex/make_numbers.py.")
-EN["exec_version"] = f"v{VERSION}, installed from the repository ({REPO})."
+EN["exec_version"] = f"v{VERSION}, installed with pip install pyssms=={VERSION} or from the repository ({REPO})."
 EN["highlights"] = [
     "One package for 2-D TTC indicators and ten car-following measures",
     "One exact conflict polygon replaces 32 corner-side combinations",
@@ -339,9 +349,13 @@ FA["sections"]["motivation"] = [
           "بر پایهٔ داستان کوتاه حرکتی هر یک کدگذاری کردند: سرعت، شتاب یا جرک ثابت برای TTC1، TTC2 و TTC3، پیشروی ترمزگیر برای TTCD و ترمز تعقیب‌کننده برای "
           "DRAC، MDRAC، DCIA، PSD، MPSD و SDI. اولی هندسی است و برای تقاطع و ادغام کار می‌کند؛ دومی سینماتیکی است و در امتداد یک خط عبور. هر کدام معمولاً، "
           "اگر اصلاً پیاده شود، جداگانه و برای یک مجموعه‌داده پیاده می‌شود."),
-    ("p", "نرم‌افزارهای باز مرتبط: Traffic Intelligence [@saunier] مسیرها و پیش‌بینی حرکت را پردازش می‌کند و یک TTC دوبعدیِ برداری روی GitHub "
-          "منتشر شده است [@jiao]. جست‌وجوی سبک در 2026-11-01 (مرور نظام‌مند نیست) بسته‌ای نیافت که شاخص‌های دوبعدیِ مقالهٔ ۲۰۱۰ را برای هر شکل و زاویه "
-          "همراه با ده سنجهٔ دنباله‌روی و قالب‌های پرونده‌های مجموعه‌داده‌های رایج بخواند. pyssms برای پر کردن همین شکاف نوشته شده است. این بسته (الف) مسیرها را می‌خواند، "
+    ("p", "نرم‌افزارهای باز مرتبط: Traffic Intelligence [@jackson2013,@saunier] مسیرها و پیش‌بینی حرکت را برای ایمنی راه پردازش می‌کند و "
+          "CommonRoad-CriMe [@lin2023] سنجه‌های بحرانی‌بودن را برای صحنه‌های خودروی خودران گرد آورده است. برای مستطیل‌ها، کد برداریِ پایتون "
+          "زمان تا برخورد، نرخ کاهش سرعت، نسبت فاصلهٔ توقف، TAdv، TTC دوبعدی و زمان برخورد پیش‌بینی‌شده را حساب می‌کند [@jiao,@jiao2025,@venthuruthiyil2022]؛ "
+          "شاخص اضطرار همراه با کد نویسندگانش منتشر شده است [@cheng2025]. در کدی که در 2026-11-08 خوانده شد، TAdv آن کد از تقاطع گوشه‌به‌گوشهٔ خط‌های سرعت "
+          "به دست می‌آید، نه T2 برمی‌گرداند و نه TG، و خواننده‌های پرونده یا سلسله‌مراتب رویارویی ندارد. جست‌وجوی مستند در 2026-11-08 در نمایهٔ بسته‌های پایتون، GitHub، "
+          "Crossref و OpenAlex (گزارش در مخزن، docs/lit) بسته‌ای نیافت که TTC، TAdv، T2 و TG مقالهٔ ۲۰۱۰ را از یک چندضلعی همراه با ده سنجهٔ دنباله‌روی و قالب‌های پرونده‌های "
+          "مجموعه‌داده‌های رایج بدهد؛ این یک جست‌وجوست نه مرور نظام‌مند، و نبودِ ابزارهای دیگر را نمی‌توان اثبات کرد. pyssms برای پر کردن همین شکاف نوشته شده است. این بسته (الف) مسیرها را می‌خواند، "
           "(ب) TTC، TAdv، T2 و TG را دقیقاً روی یک چندضلعی تداخل حساب می‌کند، (پ) ده سنجهٔ دنباله‌روی را حساب می‌کند، (ت) وجه‌ها و گوشه‌های در تماس را نام می‌برد، "
           "(ث) رویارویی‌ها را در یک سلسله‌مراتب خلاصه می‌کند و (ج) بانک کوچکی از پنجره‌های تداخل برای آزمون و آموزش همراه دارد. عددهایش با روش چاپ‌شده، با "
           "شبیه‌سازی‌ها و با ستون‌های خود مجموعه‌داده‌ها سنجیده شده‌اند."),
@@ -440,7 +454,7 @@ FA["sections"]["examples"] = [
           "در {{highd/poly_missing_share:.0f}} % دیگر دو بدنه در دو بعد از هم می‌گذرند هرچند TTC1 متناهی است."),
     ("fig", "rho", "fig5_correlations",
      "هم‌بستگی رتبه‌ای اسپیرمن میان ده سنجهٔ دنباله‌روی (ردیف‌ها، گروه‌بندی‌شده بر پایهٔ داستان حرکتی؛ ▲ بحرانی‌تر وقتی بزرگ‌تر، ▼ وقتی کوچک‌تر) "
-     "و شاخص‌های چندضلعی (ستون‌ها)، دوبه‌دو روی مقدارهای تعریف‌شده. ترمز لازم کوچک‌ترین کاهش سرعت ثابتی است که در افق تماس را پرهیز می‌دهد (ماژول escape). "
+     "و شاخص‌های چندضلعی (ستون‌ها؛ TTC poly همان TTC چندضلعی است)، دوبه‌دو روی مقدارهای تعریف‌شده. ترمز لازم (req. brak.) کوچک‌ترین کاهش سرعت ثابتی است که در افق تماس را پرهیز می‌دهد (ماژول escape). "
      "خانه‌های کادردار: هم‌بستگی ۰٫۹۰ یا بیشتر پس از گرد کردن به دو رقم اعشار. TTC1 فقط جایی که وجود دارد وارد می‌شود و SDI دودویی است."),
     ("p", "بررسی‌هایی از خوانش پاسداری می‌کنند. روی highD فاصلهٔ آزادی که pyssms حساب می‌کند با ستون headway خود مجموعه‌داده تا {{highd/gap_abs_max:.3f}} متر برابر است. "
           "روی exiD تفاوت از صدک ۵ تا صدک ۹۵ میان {{exid/gap_p5:.2f}} و {{exid/gap_p95:.2f}} متر است (بزرگ‌ترین {{exid/gap_abs_max:.1f}} متر). "
@@ -471,7 +485,7 @@ FA["sections"]["impact"] = [
           "هر جا شاخص‌های ۲۰۱۰ برای شکل‌های محدب دلخواه لازم‌اند، یک تابع آزموده جای شمارش دستی ترکیب‌های گوشه و ضلع را می‌گیرد. سوم، سکویی مشترک که اعتبارسنجی شاخص‌ها در برابر پیامدها روی آن شدنی است: "
           "خواننده، استخراج‌گر پیامد (شروع ترمز) و شمارش رویارویی‌ها در هر سطح آماده‌اند. چنین اعتبارسنجی مهم‌ترین گام بعدی چارچوب دنباله‌روی دانسته شده است [@naseralavi2025]؛ "
           "شروع کنش گریز پیامدی نامزد است [@johnsson2022]. اینجا انجام نشده و مثال‌های بالا را نباید چنین خواند."),
-    ("p", "نرم‌افزار جوان است. نسخهٔ {{version}} نخستین انتشار بسته است؛ سابقهٔ کاربردی بیرون از کار خود نویسندگان و استنادی ندارد و از مخزن نصب می‌شود، نه از نمایهٔ بسته‌ها. پنجره‌های همراه NGSIM متن مجوز اداره فدرال بزرگراه‌ها "
+    ("p", "نرم‌افزار جوان است. نسخهٔ {{version}} نخستین انتشار بسته است؛ سابقهٔ کاربردی بیرون از کار خود نویسندگان و استنادی ندارد و با pip از نمایهٔ بسته‌های پایتون (PyPI) یا از مخزن نصب می‌شود. پنجره‌های همراه NGSIM متن مجوز اداره فدرال بزرگراه‌ها "
           "(مجوز اصلاح‌شدهٔ Creative Commons Attribution 2.0) را دارند؛ از مجموعه‌داده‌های LevelX جز شمارش‌ها و مقیاس‌های خطای پیش‌بینی چیزی همراه نیست. "
           "محدودیت‌های مهم برای کاربرد فرض‌های مدل است. K سرعت ثابت و انتقال بدون چرخش را فرض می‌کند، پس خودروی در حال پیچیدن در امتداد سمت فعلی‌اش پیش‌بینی می‌شود؛ ده سنجهٔ دنباله‌روی "
           "یک‌بعدی‌اند و پیشرو و تعقیب‌کننده در امتداد یک خط می‌خواهند؛ پارامترهایشان فرض‌اند؛ و هنوز نسخهٔ دوبعدی این ده سنجه وجود ندارد. مقالهٔ روش‌شناختی همراه دربارهٔ هندسهٔ K در دست تهیه است. "

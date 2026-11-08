@@ -3,6 +3,7 @@
 ![status](https://img.shields.io/badge/status-alpha-orange)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![license](https://img.shields.io/badge/license-BSD--3--Clause-green)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24050397.svg)](https://doi.org/10.5281/zenodo.24050397)
 
 Continuous surrogate safety indicators for road-user encounters: Time-to-Collision (TTC), Time
 Advantage (TAdv, a predicted PET), T2 and Time Gap (TG) as defined by Laureshyn, Svensson and
@@ -14,8 +15,7 @@ time-time conflict polygon.
 > paper's Appendix A and a brute-force grid oracle: [docs/equivalence.md](docs/equivalence.md)), the ten car-following
 > measures of the 2025 framework, trajectory readers for SSAM, SUMO, VISSIM, LevelX and NGSIM, and a bank of NGSIM
 > conflict windows. All statistics produced by the tools are descriptive: the indicators are not validated against observed
-> outcomes here. Install from the repository (not yet on PyPI):
-> `pip install git+https://github.com/sabernaseralavi-60/pyssms`. The accompanying article is in [paper_softwarex/](paper_softwarex/).
+> outcomes here. Install with `pip install pyssms`. The accompanying article is in [paper_softwarex/](paper_softwarex/).
 
 ## What it does
 

@@ -4,6 +4,7 @@ title: "pyssms: surrogate safety indicators for road-user encounters on a time-t
 version: 0.1.0
 date-released: 2026-11-08
 license: BSD-3-Clause
+doi: 10.5281/zenodo.24050397
 repository-code: "https://github.com/sabernaseralavi-60/pyssms"
 authors:
   - family-names: Naseralavi
@@ -22,5 +23,3 @@ keywords:
   - trajectory data
 abstract: >-
   Continuous surrogate safety indicators for road-user encounters: TTC, Time Advantage, T2 and Time Gap for arbitrary approach angles, computed exactly on a time-time conflict polygon.
-# After the first release: archive it on Zenodo (GitHub integration) and add the DOI here:
-# doi: 10.5281/zenodo.XXXXXXX

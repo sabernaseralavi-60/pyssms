@@ -80,7 +80,7 @@ surrogate safety measures \sep time to collision \sep time advantage \sep trajec
 \hline
 C1 & Current code version & v0.1.0 \\
 \hline
-C2 & Permanent GitHub link to code/repository used for this code version & \url{https://github.com/sabernaseralavi-60/pyssms} \\
+C2 & Permanent GitHub link to code/repository used for this code version & \url{https://doi.org/10.5281/zenodo.24050397} \\
 \hline
 C3 & Legal Code License & BSD 3-Clause License \\
 \hline
@@ -111,7 +111,7 @@ Surrogate safety measures (SSMs) describe how close road users came to a collisi
 
 Two traditions need to meet in that code. Laureshyn, Svensson and Hydén \cite{laureshyn2010} defined time to collision (TTC), time advantage (TAdv), T2 and time gap (TG) for any approach angle, with road users represented as rectangles, by enumerating 32 combinations of a corner of one road user and a side of the other. Naseralavi et al. \cite{naseralavi2025} coded ten car-following measures by the short motion story each one assumes: constant speeds, accelerations or jerks for TTC1, TTC2 and TTC3, a braking leader for TTCD, and braking of the follower for DRAC, MDRAC, DCIA, PSD, MPSD and SDI. The first is geometric and works for crossings and merges; the second is kinematic and works along a lane. Each is usually implemented, if at all, on its own and for one data set.
 
-Related open software: Traffic Intelligence \cite{saunier} processes trajectories and motion predictions, and a vectorised two-dimensional TTC is published on GitHub \cite{jiao}. A light search on 2026-11-01 (not a systematic review) found no package that reads the two-dimensional indicators of the 2010 paper for any shape and angle together with the ten car-following measures and the file formats of the common data sets. pyssms is written to close that gap. It (i) reads trajectories, (ii) computes TTC, TAdv, T2 and TG exactly on one conflict polygon, (iii) computes the ten car-following measures, (iv) names the faces and corners that touch, (v) summarises encounters in a hierarchy, and (vi) ships a small bank of conflict windows for tests and teaching. Its numbers are checked against the printed procedure, against simulations and against the data sets' own columns.
+Related open software: Traffic Intelligence \cite{jackson2013,saunier} processes road-safety trajectories and motion predictions, and CommonRoad-CriMe \cite{lin2023} collects criticality measures for automated-vehicle scenarios. For rectangles, vectorised Python code computes the time to collision, the deceleration rate, the proportion of stopping distance, TAdv, a two-dimensional TTC and the anticipated collision time \cite{jiao,jiao2025,venthuruthiyil2022}; the emergency index is published with its authors' code \cite{cheng2025}. In the source read on 2026-11-08, the TAdv of that code takes corner-to-corner intersections of the velocity lines, returns neither T2 nor TG, and comes without file readers or a hierarchy of encounters. A documented search on 2026-11-08 of the Python Package Index, GitHub, Crossref and OpenAlex (log in the repository, docs/lit) found no package that provides TTC, TAdv, T2 and TG of the 2010 paper from one polygon together with the ten car-following measures and the file formats of the common data sets; it is a search, not a systematic review, and the absence of other tools cannot be proved. pyssms is written to close that gap. It (i) reads trajectories, (ii) computes TTC, TAdv, T2 and TG exactly on one conflict polygon, (iii) computes the ten car-following measures, (iv) names the faces and corners that touch, (v) summarises encounters in a hierarchy, and (vi) ships a small bank of conflict windows for tests and teaching. Its numbers are checked against the printed procedure, against simulations and against the data sets' own columns.
 
 \item \textbf{Software description}\label{sec:architecture}\\
 
@@ -122,16 +122,16 @@ The computing core is one geometric idea. Let $\tau$$_1$ and $\tau$$_2$ be the p
 
 Four design rules follow from the opening example. Every assumption (a reaction time, a deceleration, a horizon, a smoothing window) is a named argument; where a default exists it is visible in the signature and the docstring, and the functions of ssm1d take reaction time and decelerations without defaults. A measure that does not exist for a pair is NaN, never zero: TTC is undefined unless the pair is on a collision course. Each module is checked against an independent oracle, such as a time-stepping simulation or an implementation of the printed procedure, and not against itself. Data stay outside the package, which ships only a small NGSIM bank and counts.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig1_architecture.pdf}
+\includegraphics[width=\textwidth]{figures/fig1_architecture.pdf}
 \caption{Structure of pyssms: four layers from file readers to reports. The decision sequence sorts every pair and frame into state A, B or C; a second lane takes the leader-follower series to the ten car-following measures, which do not need K. The dashed arrow leads to further readings of the same encounter. The bar at the bottom lists the checks of the package.}
 \label{fig:arch}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig2_polygon.pdf}
+\includegraphics[width=\textwidth]{figures/fig2_polygon.pdf}
 \caption{One encounter in three views. (A) Plan view: dashed outlines at the start, filled bodies where they would touch if road user 1 were delayed by TAdv (each body at its own arrival time; circle: touching corners). (B) Conflict polygon K in the plane of the two predicted arrival times, with the diagonal, TAdv and T2. (C) The same construction for three encounters in one plane: the diagonal enters K in state A (TTC), K lies beside the diagonal in state B (TAdv), and K lies outside the horizon (shaded square) in state C.}
 \label{fig:poly}
 \end{figure}
@@ -169,9 +169,9 @@ Contact and reporting. The contact module names the face and corner that touch f
 
 The suite has 143 automated tests. The polygon was compared with an independent implementation of the printed 2010 procedure on 1,000,000 random encounters of cars, pedestrians, cyclists and trucks: 987,695 are covered by the procedure (12,305 start with overlapping bodies, which it does not treat), and the two disagree on 0 of the 987,695 for TTC, TAdv, T2, TG and the first road user (Fig.~\ref{fig:verif}). With a side parallel to an axis the printed in-section test needs an exact equality of floating-point numbers; a literal implementation misses the TTC of 6,730 of 49,731 such cases. The car-following measures are tested against independent time-stepping simulations of their stories. The polygon is not faster than a vectorised enumeration of the 32 combinations (4.3 $\mu$s against 4.1 $\mu$s per encounter, a ratio of 1.05); its value is agreement with the printed procedure and one code path for the cases the procedure does not treat (parallel paths, standing road users, overlapping bodies). The general 12-row form, which any convex shape uses, takes 2.18 times as long as the 8-row form.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig3_verification.pdf}
+\includegraphics[width=\textwidth]{figures/fig3_verification.pdf}
 \caption{Checks of the package. (A) The polygon against the printed procedure: no disagreement in the compared encounters, and the share of axis-parallel cases in which a literal implementation of the procedure misses the TTC. (B) Time per encounter for a million encounters, logarithmic axis; the per-encounter loop is a pure-Python reference and not a like-for-like comparison. (C) Automated tests by area.}
 \label{fig:verif}
 \end{figure}
@@ -211,19 +211,19 @@ We applied the ten measures to follower-leader pairs of 60 highD recordings (30,
 
 The choice of story decides which rows are critical (Fig.~\ref{fig:ten}). On highD 0.06\,\% of sampled rows have TTC1 of 3 s or less but 26.2\,\% have TTCD of 3 s or less, a ratio of 427; on exiD the shares are 0.12\,\% and 32.2\,\%, and on NGSIM 2.4\,\% and 62.7\,\%. TTC1 is defined (finite and within the prediction horizon) for only 3\,\% of highD rows, since it needs a closing pair, and TTCD for 99\,\%. Parameters matter as well, and not always in the same direction: with a reaction time of 1.5 s and decelerations of 4 m/s$^2$, the share of highD rows with TTCD of 3 s or less falls from 26.2\,\% to 11.0\,\%, whereas the share with SDI equal to one rises from 26.2\,\% to 47.7\,\%.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig4_ten_measures.pdf}
+\includegraphics[width=\textwidth]{figures/fig4_ten_measures.pdf}
 \caption{The four time measures on three data sets. (A) Range from percentile 5 to percentile 95 (thin line), interquartile range (thick bar) and median (white tick) of the defined values; the percentage is the share of sampled rows where the measure is defined (finite and within the horizon, which cuts off the largest values). (B) Share of sampled rows with the measure at 3 s or less, logarithmic axis; the bracket marks the ratio of TTCD to TTC1 on highD.}
 \label{fig:ten}
 \end{figure}
 
 The measures also order pairs differently (Fig.~\ref{fig:rho}). MPSD and the polygon's TG rank the pairs alike on all three data sets (Spearman $\rho$ = 0.96, 0.96 and 0.94). TTCD and PSD follow TAdv and TG closely on the German freeways ($\rho$ from 0.86 to 0.92) but less so on NGSIM (TTCD with TAdv 0.80, PSD with TAdv 0.50), whereas TTC1 and TAdv are nearly unrelated on highD ($\rho$ = -0.12). Where both are defined, TTC1 and the polygon TTC rank the pairs identically on highD ($\rho$ = 1.00), but differ in value by up to 1.6 s (highD), 6.4 s (exiD) and 8.4 s (NGSIM), because TTC1 sees only the longitudinal geometry. The polygon TTC exists for 62\,\% of the highD rows where TTC1 is within the horizon; in the other 38\,\% the two bodies miss each other in two dimensions although TTC1 is finite.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig5_correlations.pdf}
-\caption{Spearman rank correlation between the ten car-following measures (rows, grouped by motion story; $\blacktriangle$ more critical when larger, $\blacktriangledown$ when smaller) and polygon-based indicators (columns), pairwise on defined values. Required braking is the smallest constant deceleration that avoids a contact within the horizon (module escape). Outlined cells: correlation of 0.90 or more after rounding to two decimals. TTC1 enters only where it exists, and SDI is binary.}
+\includegraphics[width=\textwidth]{figures/fig5_correlations.pdf}
+\caption{Spearman rank correlation between the ten car-following measures (rows, grouped by motion story; $\blacktriangle$ more critical when larger, $\blacktriangledown$ when smaller) and polygon-based indicators (columns; TTC poly is the polygon TTC), pairwise on defined values. Required braking (req. brak.) is the smallest constant deceleration that avoids a contact within the horizon (module escape). Outlined cells: correlation of 0.90 or more after rounding to two decimals. TTC1 enters only where it exists, and SDI is binary.}
 \label{fig:rho}
 \end{figure}
 
@@ -235,9 +235,9 @@ The hierarchy sorts every candidate vehicle pair of a recording into level A (by
 
 Preprocessing changes the counts. NGSIM's acceleration column differs from the derivative of its speed column by 1.0 m/s$^2$ (US-101) and 4.8 m/s$^2$ (I-80) root mean square, a defect known from the literature \cite{thiemann2008,montanino2015}. At Peachtree Street the share of pairs reaching TTC below 1.5 s is 4.4\,\% on the data set's own positions and speeds and 7.0\,\% after a causal five-frame smoothing (panel B; the two runs differ in positions and in the speed source), and the share of pairs with no overlap falls from 46.0\,\% to 38.4\,\%. The package does not choose for the user: smoothing is a visible step that must be reported.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.97\textwidth]{figures/fig6_hierarchy.pdf}
+\includegraphics[width=\textwidth]{figures/fig6_hierarchy.pdf}
 \caption{(A) Candidate pairs of motor vehicles whose future paths overlap, split into levels A and B (TTC and TAdv classes); the labels give the shares of all pairs in level A and in levels A or B (paths overlap), and the number of pairs. (B) Effect of smoothing on NGSIM, Peachtree Street.}
 \label{fig:hier}
 \end{figure}
@@ -248,11 +248,11 @@ What pyssms changes for a researcher is traceability. A safety indicator compute
 
 The package serves three uses. First, teaching and method comparison: the shipped bank of 140 NGSIM windows (80 chosen by smallest TTC, 40 by smallest TAdv, 20 by smallest distance; 0.7 MB) lets a student run every indicator without downloading a data set. The windows are chosen by the package's own indicators, so they are test material, not a sample of traffic: in the 80 windows chosen by smallest TTC the smallest TTC has a median of 0.014 s and never exceeds 0.14 s, at centre distances of 2.3 to 7.7 m, so the rectangular bodies are about to touch. Second, wherever the 2010 indicators are needed for arbitrary convex shapes, one tested function replaces hand-coded enumeration of corner and side combinations. Third, a common platform on which the validation of indicators against outcomes can be done: a reader, an outcome extractor (braking onset), and counts of encounters per level are in place. Such a validation was named the most critical next step of the car-following framework \cite{naseralavi2025}; evasive-action onset is a candidate outcome \cite{johnsson2022}. It has not been done here, and the examples above must not be read as one.
 
-The software is young. Version 0.1.0 is the initial release of the package; it has no record of use outside the authors' own work and no citations yet, and it is installed from its repository rather than from a package index. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning vehicle is predicted along its current heading; the ten car-following measures are one-dimensional and need a leader and a follower along a lane; their parameters are assumptions; and no two-dimensional version of those ten measures exists yet. A companion methods manuscript on the geometry of K is in preparation. The package does not replace criticality metrics designed for automated driving \cite{westhofen2023}; it supplies the indicators of the 2010 and 2025 papers with tests.
+The software is young. Version 0.1.0 is the initial release of the package; it has no record of use outside the authors' own work and no citations yet, and it is installed with pip from the Python Package Index or from its repository. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning vehicle is predicted along its current heading; the ten car-following measures are one-dimensional and need a leader and a follower along a lane; their parameters are assumptions; and no two-dimensional version of those ten measures exists yet. A companion methods manuscript on the geometry of K is in preparation. The package does not replace criticality metrics designed for automated driving \cite{westhofen2023}; it supplies the indicators of the 2010 and 2025 papers with tests.
 
 \item \textbf{Conclusions}\label{sec:conclusions}\\
 
-pyssms brings the two-dimensional indicators of the 2010 framework and the ten car-following measures of the 2025 framework into one tested Python package that reads the files of the common data sets. Verification is part of the package: 143 tests, agreement with the printed procedure on 987,695 encounters, and simulations of the motion stories. The examples show that results depend on choices that code makes visible: the motion story, its parameters and the smoothing of positions. Everything reported is descriptive. The next steps are validation against observed outcomes and a two-dimensional version of the car-following measures, and an archived release with a persistent identifier.
+pyssms brings the two-dimensional indicators of the 2010 framework and the ten car-following measures of the 2025 framework into one tested Python package that reads the files of the common data sets. Verification is part of the package: 143 tests, agreement with the printed procedure on 987,695 encounters, and simulations of the motion stories. The examples show that results depend on choices that code makes visible: the motion story, its parameters and the smoothing of positions. Everything reported is descriptive. The next steps are validation against observed outcomes and a two-dimensional version of the car-following measures.
 
 \end{enumerate}
 
@@ -278,7 +278,7 @@ The authors declare that they have no known competing financial interests or per
 
 \section*{Data availability}
 
-The code is available at https://github.com/sabernaseralavi-60/pyssms (BSD 3-Clause licence). The shipped NGSIM windows come from the Federal Highway Administration NGSIM data under a modified Creative Commons Attribution 2.0 licence (credit FHWA and NGSIM). The LevelX data sets are available from their providers on request; only aggregated counts are shipped. The numbers of this paper are reproduced by paper\_softwarex/make\_numbers.py.
+The code is available at https://github.com/sabernaseralavi-60/pyssms (BSD 3-Clause licence), and version 0.1.0 is archived on Zenodo \cite{pyssms_zenodo}. The shipped NGSIM windows come from the Federal Highway Administration NGSIM data under a modified Creative Commons Attribution 2.0 licence (credit FHWA and NGSIM). The LevelX data sets are available from their providers on request; only aggregated counts are shipped. The numbers of this paper are reproduced by paper\_softwarex/make\_numbers.py.
 
 \begin{thebibliography}{00}
 
@@ -302,9 +302,19 @@ The code is available at https://github.com/sabernaseralavi-60/pyssms (BSD 3-Cla
 
 \bibitem{naseralavi2025} Naseralavi S, Soltanirad M, Ranjbar E, Jimee K, Lucero M, Baghersad M, et al. A short-term storytelling framework for understanding surrogate safety measures in intelligent vehicle interactions. Future Transp 2025;5:86. \url{https://doi.org/10.3390/futuretransp5030086}.
 
+\bibitem{jackson2013} Jackson S, Miranda-Moreno LF, St-Aubin P, Saunier N. Flexible, mobile video camera system and open source video analysis software for road safety and behavioral analysis. Transp Res Rec 2013;2365:90--8. \url{https://doi.org/10.3141/2365-12}.
+
 \bibitem{saunier} Saunier N. Traffic Intelligence: tools for transportation data processing [software], MIT licence. Python Package Index. \url{https://pypi.org/project/trafficintelligence/} (accessed 2026-11-07).
 
+\bibitem{lin2023} Lin Y, Althoff M. CommonRoad-CriMe: a toolbox for criticality measures of autonomous vehicles. In: 2023 IEEE Intelligent Vehicles Symposium (IV); 2023. p. 1--8. \url{https://doi.org/10.1109/IV55152.2023.10186673}.
+
 \bibitem{jiao} Jiao Y. Two-Dimensional-Time-To-Collision [software], MIT licence. GitHub. \url{https://github.com/Yiru-Jiao/Two-Dimensional-Time-To-Collision} (accessed 2026-11-07).
+
+\bibitem{jiao2025} Jiao Y. Vectorised surrogate safety measures for traffic interactions in two-dimensional space [software], MIT licence. GitHub; 2025. \url{https://github.com/Yiru-Jiao/SSMsOnPlane} (accessed 2026-11-08).
+
+\bibitem{venthuruthiyil2022} Venthuruthiyil SP, Chunchu M. Anticipated collision time (ACT): a two-dimensional surrogate safety indicator for trajectory-based proactive safety assessment. Transp Res Part C 2022;139:103655. \url{https://doi.org/10.1016/j.trc.2022.103655}.
+
+\bibitem{cheng2025} Cheng H, Jiang Y, Zhang H, Chen K, Huang H, Xu S, et al. Emergency index (EI): a two-dimensional surrogate safety measure considering vehicles' interaction depth. Transp Res Part C 2025;171:104981. \url{https://doi.org/10.1016/j.trc.2024.104981}.
 
 \bibitem{odonnell1989} O'Donnell PA, Lozano-Pérez T. Deadlock-free and collision-free coordination of two robot manipulators. In: Proceedings, 1989 International Conference on Robotics and Automation; 1989. p. 484--9. \url{https://doi.org/10.1109/robot.1989.100033}.
 
@@ -324,10 +334,12 @@ The code is available at https://github.com/sabernaseralavi-60/pyssms (BSD 3-Cla
 
 \bibitem{westhofen2023} Westhofen L, Neurohr C, Koopmann T, Butz M, Schütt B, Utesch F, et al. Criticality metrics for automated driving: a review and suitability analysis of the state of the art. Arch Comput Methods Eng 2023;30:1--35. \url{https://doi.org/10.1007/s11831-022-09788-7}.
 
+\bibitem{pyssms_zenodo} Naseralavi SS, Mazaheri A. pyssms: surrogate safety indicators for road-user encounters on a time-time conflict polygon [software]. Version 0.1.0. Zenodo; 2026. \url{https://doi.org/10.5281/zenodo.24050397}.
+
 \end{thebibliography}
 
 \section*{Current executable software version}
 
-v0.1.0, installed from the repository (\url{https://github.com/sabernaseralavi-60/pyssms}).
+v0.1.0, installed with pip install pyssms==0.1.0 or from the repository (\url{https://github.com/sabernaseralavi-60/pyssms}).
 
 \end{document}

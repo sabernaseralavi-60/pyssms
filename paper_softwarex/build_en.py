@@ -106,7 +106,8 @@ head = head.replace("\\setlength{\\parindent}{0pt}", "\\setlength{\\parindent}{0
 authors = []
 for a in C.AUTHORS:
     cor = r"\corref{cor1}" if a["corresponding"] else ""
-    authors.append(f"\\author[aff{a['aff']}]{{{esc(a['name'])}{cor}}}\n\\ead{{{a['email'].replace('_', r'\_')}}}")
+    ead = "\n\\ead{" + a["email"].replace("_", r"\_") + "}" if a["email"] else ""
+    authors.append(f"\\author[aff{a['aff']}]{{{esc(a['name'])}{cor}}}{ead}")
 affs = "\n".join(f"\\address[aff{k}]{{{esc(v)}}}" for k, v in C.AFFILS.items())
 front = ("\\begin{document}\n\\renewcommand{\\labelenumii}{\\arabic{enumi}.\\arabic{enumii}}\n\n\\begin{frontmatter}\n\n"
          f"\\title{{{esc(L['title'])}}}\n\n" + "\n".join(authors) + "\n\\cortext[cor1]{Corresponding author}\n\n" + affs + "\n\n"

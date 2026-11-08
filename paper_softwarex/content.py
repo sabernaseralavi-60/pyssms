@@ -18,9 +18,11 @@ ZENODO_DOI = _zf.read_text(encoding="utf8").strip() if _zf.exists() else ""
 ARCHIVE = ("https://doi.org/" + ZENODO_DOI) if ZENODO_DOI else ""
 SUPPORT_EMAIL = "saber_naseralavi@uk.ac.ir"
 
-AFFILS = {"a": "Department of Civil Engineering, Shahid Bahonar University of Kerman, Kerman 7616914111, Iran"}
+AFFILS = {"a": "Department of Civil Engineering, Shahid Bahonar University of Kerman, Kerman 7616914111, Iran",
+          "b": "Department of Civil and Environmental Engineering, Tarbiat Modares University, Tehran 1411944961, Iran"}
 AUTHORS = [{"name": "Seyed Saber Naseralavi", "aff": "a", "email": SUPPORT_EMAIL, "corresponding": True,
-            "orcid": "0000-0002-5392-910X"}]
+            "orcid": "0000-0002-5392-910X"},
+           {"name": "Akram Mazaheri", "aff": "b", "email": None, "corresponding": False, "orcid": None}]  # ORCID unconfirmed: not printed
 
 # ----------------------------------------------------------------------------------------------------------------- references
 # Formatted by hand from Crossref records (checked 2026-11-07 and earlier, see paper/paper.bib); numbered by first appearance.
@@ -174,7 +176,7 @@ EN["sections"]["architecture"] = [
      "axis; the per-encounter loop is a pure-Python reference and not a like-for-like comparison. (C) Automated tests by area."),
     ("h", "Usage."),
     ("p", "The listing reads one NGSIM period, smooths it, sorts all encounters into levels, loads the shipped bank, plots one window, and computes "
-          "the ten car-following measures of a synthetic leader and follower. It ran in about {{listing/minutes:.0f}} minutes on the author's computer, "
+          "the ten car-following measures of a synthetic leader and follower. It ran in about {{listing/minutes:.0f}} minutes on the first author's computer, "
           "most of it in the search of {{listing/n_enc:,}} encounters of the full period."),
     ("code", "from pyssms import datasets, hierarchy, io\n"
              "from pyssms import preprocessing, process, scenario, viz\n"
@@ -265,7 +267,7 @@ EN["sections"]["impact"] = [
           "common platform on which the validation of indicators against outcomes can be done: a reader, an outcome extractor (braking onset), and "
           "counts of encounters per level are in place. Such a validation was named the most critical next step of the car-following framework [@naseralavi2025]; "
           "evasive-action onset is a candidate outcome [@johnsson2022]. It has not been done here, and the examples above must not be read as one."),
-    ("p", "The software is young. Version {{version}} is the initial release of the package; it has no record of use outside the author's own work and "
+    ("p", "The software is young. Version {{version}} is the initial release of the package; it has no record of use outside the authors' own work and "
           "no citations yet, and it is installed from its repository rather than from a package index. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative "
           "Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The "
           "limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning "
@@ -281,15 +283,15 @@ EN["sections"]["conclusions"] = [
           "visible: the motion story, its parameters and the smoothing of positions. Everything reported is descriptive. The next steps are validation "
           "against observed outcomes and a two-dimensional version of the car-following measures" + ("" if ZENODO_DOI else ", and an archived release with a persistent identifier") + "."),
 ]
-EN["ack"] = "The author thanks the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research."
-EN["ai"] = ("During the preparation of this work the author used Claude (Anthropic) as an assistant for study planning, writing and running analysis code and tests, "
-            "producing figures, literature screening, and drafting and editing the text. After using this tool, the author reviewed, verified and edited the material "
-            "(code, results, references and text) and takes full responsibility for the content of the publication. Numbers in the text are inserted by code "
+EN["ack"] = "The authors thank the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research."
+EN["ai"] = ("During the preparation of this work the authors used Claude (Anthropic) as an assistant for study planning, writing and running analysis code and tests, "
+            "producing figures, literature screening, and drafting and editing the text. After using this tool, the authors reviewed, verified and edited the material "
+            "(code, results, references and text) and take full responsibility for the content of the publication. Numbers in the text are inserted by code "
             "from the result files, and the references were checked against a bibliographic database.")
 EN["credit"] = ("Seyed Saber Naseralavi: Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, "
-                "Writing – original draft, Writing – review & editing, Visualization.")
+                "Writing – original draft, Writing – review & editing, Visualization. Akram Mazaheri: [[AUTHOR-TODO: CRediT roles of Akram Mazaheri, to be stated by the authors]].")
 EN["funding"] = "This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors."
-EN["competing"] = "The author declares that he has no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper."
+EN["competing"] = "The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper."
 EN["data"] = ("The code is available at " + REPO + " (BSD 3-Clause licence)" + (", and version " + VERSION + " is archived on Zenodo [@pyssms_zenodo]" if ZENODO_DOI else "") + ". The shipped NGSIM windows come from the Federal Highway Administration "
               "NGSIM data under a modified Creative Commons Attribution 2.0 licence (credit FHWA and NGSIM). The LevelX data sets are available from their "
               "providers on request; only aggregated counts are shipped. The numbers of this paper are reproduced by paper_softwarex/make_numbers.py.")
@@ -404,7 +406,7 @@ FA["sections"]["architecture"] = [
      "(B) زمان هر رویارویی برای یک میلیون رویارویی، محور لگاریتمی؛ حلقهٔ هر-رویارویی یک مرجع پایتون خالص است و مقایسهٔ هم‌سنگ نیست. (C) آزمون‌های خودکار به تفکیک بخش."),
     ("h", "کاربرد."),
     ("p", "فهرست زیر یک دورهٔ NGSIM را می‌خواند، هموار می‌کند، همهٔ رویارویی‌ها را در سطح‌ها مرتب می‌کند، بانک همراه را بار می‌کند، یک پنجره را رسم می‌کند و "
-          "ده سنجهٔ دنباله‌روی یک پیشرو و تعقیب‌کنندهٔ مصنوعی را حساب می‌کند. اجرای آن روی رایانهٔ نویسنده حدود {{listing/minutes:.0f}} دقیقه طول کشید، "
+          "ده سنجهٔ دنباله‌روی یک پیشرو و تعقیب‌کنندهٔ مصنوعی را حساب می‌کند. اجرای آن روی رایانهٔ نویسندهٔ نخست حدود {{listing/minutes:.0f}} دقیقه طول کشید، "
           "بیشتر آن در جست‌وجوی {{listing/n_enc:,}} رویارویی کل دوره."),
     ("code", EN["sections"]["architecture"][-1][1]),
 ]
@@ -469,7 +471,7 @@ FA["sections"]["impact"] = [
           "هر جا شاخص‌های ۲۰۱۰ برای شکل‌های محدب دلخواه لازم‌اند، یک تابع آزموده جای شمارش دستی ترکیب‌های گوشه و ضلع را می‌گیرد. سوم، سکویی مشترک که اعتبارسنجی شاخص‌ها در برابر پیامدها روی آن شدنی است: "
           "خواننده، استخراج‌گر پیامد (شروع ترمز) و شمارش رویارویی‌ها در هر سطح آماده‌اند. چنین اعتبارسنجی مهم‌ترین گام بعدی چارچوب دنباله‌روی دانسته شده است [@naseralavi2025]؛ "
           "شروع کنش گریز پیامدی نامزد است [@johnsson2022]. اینجا انجام نشده و مثال‌های بالا را نباید چنین خواند."),
-    ("p", "نرم‌افزار جوان است. نسخهٔ {{version}} نخستین انتشار بسته است؛ سابقهٔ کاربردی بیرون از کار خود نویسنده و استنادی ندارد و از مخزن نصب می‌شود، نه از نمایهٔ بسته‌ها. پنجره‌های همراه NGSIM متن مجوز اداره فدرال بزرگراه‌ها "
+    ("p", "نرم‌افزار جوان است. نسخهٔ {{version}} نخستین انتشار بسته است؛ سابقهٔ کاربردی بیرون از کار خود نویسندگان و استنادی ندارد و از مخزن نصب می‌شود، نه از نمایهٔ بسته‌ها. پنجره‌های همراه NGSIM متن مجوز اداره فدرال بزرگراه‌ها "
           "(مجوز اصلاح‌شدهٔ Creative Commons Attribution 2.0) را دارند؛ از مجموعه‌داده‌های LevelX جز شمارش‌ها و مقیاس‌های خطای پیش‌بینی چیزی همراه نیست. "
           "محدودیت‌های مهم برای کاربرد فرض‌های مدل است. K سرعت ثابت و انتقال بدون چرخش را فرض می‌کند، پس خودروی در حال پیچیدن در امتداد سمت فعلی‌اش پیش‌بینی می‌شود؛ ده سنجهٔ دنباله‌روی "
           "یک‌بعدی‌اند و پیشرو و تعقیب‌کننده در امتداد یک خط می‌خواهند؛ پارامترهایشان فرض‌اند؛ و هنوز نسخهٔ دوبعدی این ده سنجه وجود ندارد. مقالهٔ روش‌شناختی همراه دربارهٔ هندسهٔ K در دست تهیه است. "
@@ -480,13 +482,13 @@ FA["sections"]["conclusions"] = [
           "{{tests/total}} آزمون، هم‌خوانی با روش چاپ‌شده روی {{equiv/compared:,}} رویارویی و شبیه‌سازی داستان‌های حرکتی. مثال‌ها نشان می‌دهند نتیجه‌ها به انتخاب‌هایی بستگی دارند که کد آشکارشان می‌کند: "
           "داستان حرکتی، پارامترهای آن و هموارسازی موقعیت‌ها. همهٔ آنچه گزارش شده توصیفی است. گام‌های بعدی اعتبارسنجی در برابر پیامدهای مشاهده‌شده، نسخهٔ دوبعدی سنجه‌های دنباله‌روی" + ("" if ZENODO_DOI else " و انتشار بایگانی‌شده با شناسهٔ پایدار") + " است."),
 ]
-FA["ack"] = "نویسنده از فراهم‌کنندگان داده‌های highD، inD، rounD، exiD و NGSIM که آن‌ها را برای پژوهش در دسترس گذاشته‌اند سپاسگزار است."
-FA["ai"] = ("در تهیهٔ این اثر نویسنده از Claude (Anthropic) به‌عنوان دستیار برای برنامه‌ریزی مطالعه، نوشتن و اجرای کد تحلیل و آزمون، تولید شکل‌ها، غربالگری منابع، و پیش‌نویس و ویرایش متن استفاده کرد. "
-            "پس از استفاده از این ابزار، نویسنده مواد تولیدشده (کد، نتایج، منابع و متن) را بازبینی، راستی‌آزمایی و ویرایش کرد و مسئولیت کامل محتوای اثر را می‌پذیرد. "
+FA["ack"] = "نویسندگان از فراهم‌کنندگان داده‌های highD، inD، rounD، exiD و NGSIM که آن‌ها را برای پژوهش در دسترس گذاشته‌اند سپاسگزارند."
+FA["ai"] = ("در تهیهٔ این اثر نویسندگان از Claude (Anthropic) به‌عنوان دستیار برای برنامه‌ریزی مطالعه، نوشتن و اجرای کد تحلیل و آزمون، تولید شکل‌ها، غربالگری منابع، و پیش‌نویس و ویرایش متن استفاده کردند. "
+            "پس از استفاده از این ابزار، نویسندگان مواد تولیدشده (کد، نتایج، منابع و متن) را بازبینی، راستی‌آزمایی و ویرایش کردند و مسئولیت کامل محتوای اثر را می‌پذیرند. "
             "عددهای متن را کد از پرونده‌های نتیجه وارد می‌کند و ارجاع‌ها با یک پایگاه کتابشناختی سنجیده شده‌اند.")
-FA["credit"] = ("سید صابر ناصرعلوی: مفهوم‌پردازی، روش‌شناسی، نرم‌افزار، اعتبارسنجی، تحلیل رسمی، پژوهش، نگهداری داده، نگارش پیش‌نویس، نگارش بازبینی و ویرایش، تصویرسازی.")
+FA["credit"] = ("سید صابر ناصرعلوی: مفهوم‌پردازی، روش‌شناسی، نرم‌افزار، اعتبارسنجی، تحلیل رسمی، پژوهش، نگهداری داده، نگارش پیش‌نویس، نگارش بازبینی و ویرایش، تصویرسازی. اکرم مظاهری: [[AUTHOR-TODO: CRediT roles of Akram Mazaheri, to be stated by the authors]].")
 FA["funding"] = "این پژوهش هیچ کمک مالی ویژه‌ای از نهادهای تأمین مالی در بخش دولتی، تجاری یا غیرانتفاعی دریافت نکرده است."
-FA["competing"] = "نویسنده اعلام می‌کند هیچ منافع مالی یا روابط شخصی شناخته‌شده‌ای که بتواند بر کار گزارش‌شده در این مقاله اثر گذاشته باشد ندارد."
+FA["competing"] = "نویسندگان اعلام می‌کنند هیچ منافع مالی یا روابط شخصی شناخته‌شده‌ای که بتواند بر کار گزارش‌شده در این مقاله اثر گذاشته باشد ندارند."
 FA["data"] = ("کد در " + REPO + " (مجوز BSD 3-Clause) در دسترس است" + (" و نسخهٔ " + VERSION + " در Zenodo بایگانی شده است [@pyssms_zenodo]" if ZENODO_DOI else "") + ". پنجره‌های همراه NGSIM از داده‌های NGSIM اداره فدرال بزرگراه‌ها با مجوز اصلاح‌شدهٔ Creative Commons Attribution 2.0 آمده‌اند "
               "(ذکر FHWA و NGSIM). مجموعه‌داده‌های LevelX از فراهم‌کنندگانشان با درخواست در دسترس‌اند؛ فقط شمارش‌های تجمیعی همراه بسته است. عددهای این مقاله را paper_softwarex/make_numbers.py بازتولید می‌کند.")
 FA["exec_version"] = EN["exec_version"]

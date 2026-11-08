@@ -53,9 +53,11 @@
 
 \author[affa]{Seyed Saber Naseralavi\corref{cor1}}
 \ead{saber\_naseralavi@uk.ac.ir}
+\author[affb]{Akram Mazaheri}
 \cortext[cor1]{Corresponding author}
 
 \address[affa]{Department of Civil Engineering, Shahid Bahonar University of Kerman, Kerman 7616914111, Iran}
+\address[affb]{Department of Civil and Environmental Engineering, Tarbiat Modares University, Tehran 1411944961, Iran}
 
 \begin{abstract}
 Surrogate safety measures turn road-user trajectories into numbers that say how close an encounter came to a collision. Two families of them have lived in separate code: two-dimensional indicators defined for any approach angle, and one-dimensional car-following measures built on short motion stories. pyssms is a Python package that puts both on common ground. Time to collision, time advantage, T2 and time gap are read exactly from one convex conflict polygon, and ten car-following measures are implemented from the motion stories they assume. The package reads SSAM, SUMO, VISSIM, LevelX and NGSIM trajectories, smooths them, finds candidate pairs, sorts encounters into a hierarchy, names the faces and corners that touch, and ships 140 conflict windows cut from NGSIM. It depends on NumPy and PyYAML only. Correctness is tested rather than asserted: 143 automated tests, agreement with the printed procedure on 987,695 random encounters, and independent simulations of the motion stories. Applied to 60 highD, 93 exiD and 6 NGSIM freeway recordings, the share of highD rows with a time to collision of 3 s or less is 0.06\,\% if speeds are assumed constant and 26\,\% if the leader is assumed to brake to a stop. All statistics are descriptive. Version 0.1.0 is the initial release of the package.
@@ -176,7 +178,7 @@ The suite has 143 automated tests. The polygon was compared with an independent 
 
 \textbf{Usage.}
 
-The listing reads one NGSIM period, smooths it, sorts all encounters into levels, loads the shipped bank, plots one window, and computes the ten car-following measures of a synthetic leader and follower. It ran in about 3 minutes on the author's computer, most of it in the search of 49,034 encounters of the full period.
+The listing reads one NGSIM period, smooths it, sorts all encounters into levels, loads the shipped bank, plots one window, and computes the ten car-following measures of a synthetic leader and follower. It ran in about 3 minutes on the first author's computer, most of it in the search of 49,034 encounters of the full period.
 
 \begin{footnotesize}\begin{verbatim}
 from pyssms import datasets, hierarchy, io
@@ -246,7 +248,7 @@ What pyssms changes for a researcher is traceability. A safety indicator compute
 
 The package serves three uses. First, teaching and method comparison: the shipped bank of 140 NGSIM windows (80 chosen by smallest TTC, 40 by smallest TAdv, 20 by smallest distance; 0.7 MB) lets a student run every indicator without downloading a data set. The windows are chosen by the package's own indicators, so they are test material, not a sample of traffic: in the 80 windows chosen by smallest TTC the smallest TTC has a median of 0.014 s and never exceeds 0.14 s, at centre distances of 2.3 to 7.7 m, so the rectangular bodies are about to touch. Second, wherever the 2010 indicators are needed for arbitrary convex shapes, one tested function replaces hand-coded enumeration of corner and side combinations. Third, a common platform on which the validation of indicators against outcomes can be done: a reader, an outcome extractor (braking onset), and counts of encounters per level are in place. Such a validation was named the most critical next step of the car-following framework \cite{naseralavi2025}; evasive-action onset is a candidate outcome \cite{johnsson2022}. It has not been done here, and the examples above must not be read as one.
 
-The software is young. Version 0.1.0 is the initial release of the package; it has no record of use outside the author's own work and no citations yet, and it is installed from its repository rather than from a package index. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning vehicle is predicted along its current heading; the ten car-following measures are one-dimensional and need a leader and a follower along a lane; their parameters are assumptions; and no two-dimensional version of those ten measures exists yet. A companion methods manuscript on the geometry of K is in preparation. The package does not replace criticality metrics designed for automated driving \cite{westhofen2023}; it supplies the indicators of the 2010 and 2025 papers with tests.
+The software is young. Version 0.1.0 is the initial release of the package; it has no record of use outside the authors' own work and no citations yet, and it is installed from its repository rather than from a package index. The shipped NGSIM windows carry the licence text of the Federal Highway Administration (a modified Creative Commons Attribution 2.0 licence); nothing from the LevelX data sets is shipped except counts and prediction-error scales. The limits that matter for use are the assumptions of the model. K assumes constant velocity and translation without rotation, so a turning vehicle is predicted along its current heading; the ten car-following measures are one-dimensional and need a leader and a follower along a lane; their parameters are assumptions; and no two-dimensional version of those ten measures exists yet. A companion methods manuscript on the geometry of K is in preparation. The package does not replace criticality metrics designed for automated driving \cite{westhofen2023}; it supplies the indicators of the 2010 and 2025 papers with tests.
 
 \item \textbf{Conclusions}\label{sec:conclusions}\\
 
@@ -256,15 +258,15 @@ pyssms brings the two-dimensional indicators of the 2010 framework and the ten c
 
 \section*{Acknowledgements}
 
-The author thanks the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research.
+The authors thank the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
 
-During the preparation of this work the author used Claude (Anthropic) as an assistant for study planning, writing and running analysis code and tests, producing figures, literature screening, and drafting and editing the text. After using this tool, the author reviewed, verified and edited the material (code, results, references and text) and takes full responsibility for the content of the publication. Numbers in the text are inserted by code from the result files, and the references were checked against a bibliographic database.
+During the preparation of this work the authors used Claude (Anthropic) as an assistant for study planning, writing and running analysis code and tests, producing figures, literature screening, and drafting and editing the text. After using this tool, the authors reviewed, verified and edited the material (code, results, references and text) and take full responsibility for the content of the publication. Numbers in the text are inserted by code from the result files, and the references were checked against a bibliographic database.
 
 \section*{CRediT authorship contribution statement}
 
-Seyed Saber Naseralavi: Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, Writing – original draft, Writing – review \& editing, Visualization.
+Seyed Saber Naseralavi: Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, Writing – original draft, Writing – review \& editing, Visualization. Akram Mazaheri: [[AUTHOR-TODO: CRediT roles of Akram Mazaheri, to be stated by the authors]].
 
 \section*{Funding}
 
@@ -272,7 +274,7 @@ This research did not receive any specific grant from funding agencies in the pu
 
 \section*{Declaration of competing interest}
 
-The author declares that he has no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 \section*{Data availability}
 

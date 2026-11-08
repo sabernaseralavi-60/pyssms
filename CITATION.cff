@@ -10,6 +10,9 @@ authors:
     given-names: Seyed Saber
     orcid: "https://orcid.org/0000-0002-5392-910X"
     affiliation: "Department of Civil Engineering, Shahid Bahonar University of Kerman, Kerman, Iran"
+  - family-names: Mazaheri
+    given-names: Akram
+    affiliation: "Department of Civil and Environmental Engineering, Tarbiat Modares University, Tehran, Iran"
 keywords:
   - surrogate safety measures
   - time to collision

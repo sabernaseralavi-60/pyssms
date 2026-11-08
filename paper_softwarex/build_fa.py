@@ -92,8 +92,8 @@ doc = f"""<!DOCTYPE html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><title>{html.escape(L['title'])}</title>
 <link rel="stylesheet" href="softwarex_fa.css"></head><body>
 <header><h1 class="title">{html.escape(L['title'])}</h1>
-<p class="author">سید صابر ناصرعلوی<sup>*</sup></p>
-<p class="aff">گروه مهندسی عمران، دانشگاه شهید باهنر کرمان، کرمان، ایران<br><span dir="ltr">* {C.SUPPORT_EMAIL}</span></p>
+<p class="author">سید صابر ناصرعلوی<sup>*،۱</sup> و اکرم مظاهری<sup>۲</sup></p>
+<p class="aff"><sup>۱</sup> گروه مهندسی عمران، دانشگاه شهید باهنر کرمان، کرمان، ایران<br><sup>۲</sup> گروه مهندسی عمران و محیط زیست، دانشگاه تربیت مدرس، تهران، ایران<br><span dir="ltr">* {C.SUPPORT_EMAIL}</span></p>
 <p class="aff">دست‌نوشتهٔ نرم‌افزاری برای مجلهٔ SoftwareX (انتشارات Elsevier)؛ ترجمهٔ فارسی نسخهٔ انگلیسی؛ بسته: pyssms نسخهٔ <span dir="ltr">{C.VERSION}</span></p></header>
 <section class="abstract"><h2>چکیده</h2><p>{inline(L['abstract'])}</p><p><b>واژه‌های کلیدی:</b> {html.escape(kw)}</p></section>
 <h2>فرادادهٔ الزامی کد</h2>

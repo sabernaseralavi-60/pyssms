@@ -294,8 +294,7 @@ EN["sections"]["conclusions"] = [
           "against observed outcomes and a two-dimensional version of the car-following measures" + ("" if ZENODO_DOI else ", and an archived release with a persistent identifier") + "."),
 ]
 EN["ack"] = "The authors thank the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research."
-EN["ai"] = ("During the preparation of this work the authors used Claude (Anthropic) for study planning, code and analysis scripts, figures, literature screening, "
-            "and drafting and editing of the text. The authors reviewed, verified and edited the output and take full responsibility for the content of the publication.")
+EN["ai"] = ('During the preparation of this manuscript, the authors used Claude (Anthropic) as an assistive tool for literature screening, code development, data analysis scripts, figure preparation, and drafting and language editing of the text. All AI-assisted outputs were critically reviewed and verified by the authors, who take full responsibility for the accuracy, integrity, and final content of the publication.')
 EN["credit"] = ("Seyed Saber Naseralavi: Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, "
                 "Writing – original draft, Writing – review & editing, Visualization. Akram Mazaheri: Validation, Investigation, Data curation, Writing – review & editing.")
 EN["funding"] = "This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors."
@@ -495,8 +494,7 @@ FA["sections"]["conclusions"] = [
           "داستان حرکتی، پارامترهای آن و هموارسازی موقعیت‌ها. همهٔ آنچه گزارش شده توصیفی است. گام‌های بعدی اعتبارسنجی در برابر پیامدهای مشاهده‌شده، نسخهٔ دوبعدی سنجه‌های دنباله‌روی" + ("" if ZENODO_DOI else " و انتشار بایگانی‌شده با شناسهٔ پایدار") + " است."),
 ]
 FA["ack"] = "نویسندگان از فراهم‌کنندگان داده‌های highD، inD، rounD، exiD و NGSIM که آن‌ها را برای پژوهش در دسترس گذاشته‌اند سپاسگزارند."
-FA["ai"] = ("در تهیهٔ این اثر نویسندگان از Claude (Anthropic) برای برنامه‌ریزی مطالعه، کد و اسکریپت‌های تحلیل، شکل‌ها، غربالگری منابع و پیش‌نویس و ویرایش متن استفاده کردند. "
-            "نویسندگان خروجی را بازبینی، راستی‌آزمایی و ویرایش کردند و مسئولیت کامل محتوای اثر را می‌پذیرند.")
+FA["ai"] = ('در تهیهٔ این دست\u200cنوشته، نویسندگان از Claude (Anthropic) به\u200cعنوان ابزار کمکی برای غربالگری منابع، توسعهٔ کد، اسکریپت\u200cهای تحلیل داده، تهیهٔ شکل\u200cها و پیش\u200cنویس و ویرایش زبانی متن استفاده کردند. همهٔ خروجی\u200cهای کمک\u200cگرفته از هوش مصنوعی را نویسندگان به\u200cطور انتقادی بازبینی و راستی\u200cآزمایی کردند و مسئولیت کامل صحت، یکپارچگی و محتوای نهایی اثر را می\u200cپذیرند.')
 FA["credit"] = ("سید صابر ناصرعلوی: مفهوم‌پردازی، روش‌شناسی، نرم‌افزار، اعتبارسنجی، تحلیل رسمی، پژوهش، نگهداری داده، نگارش پیش‌نویس، نگارش بازبینی و ویرایش، تصویرسازی. اکرم مظاهری: اعتبارسنجی، پژوهش، نگهداری داده، نگارش – بازبینی و ویرایش.")
 FA["funding"] = "این پژوهش هیچ کمک مالی ویژه‌ای از نهادهای تأمین مالی در بخش دولتی، تجاری یا غیرانتفاعی دریافت نکرده است."
 FA["competing"] = "نویسندگان اعلام می‌کنند هیچ منافع مالی یا روابط شخصی شناخته‌شده‌ای که بتواند بر کار گزارش‌شده در این مقاله اثر گذاشته باشد ندارند."

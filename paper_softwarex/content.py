@@ -69,7 +69,7 @@ EN["abstract"] = (
     "time advantage, T2 and time gap are read exactly from one convex conflict polygon, and ten car-following measures are implemented "
     "from the motion stories they assume. The package reads SSAM, SUMO, VISSIM, LevelX and NGSIM trajectories, smooths them, finds "
     "candidate pairs, sorts encounters into a hierarchy, names the faces and corners that touch, and ships {{bank/windows}} conflict windows "
-    "cut from NGSIM. It depends on NumPy and PyYAML only. Correctness is tested rather than asserted: {{tests/total}} automated tests, "
+    "cut from NGSIM. It depends on NumPy and PyYAML only. It is verified with {{tests/total}} automated tests, "
     "agreement with the printed procedure on {{equiv/compared:,}} random encounters, and independent simulations of the motion stories. "
     "Applied to {{highd/recordings}} highD, {{exid/recordings}} exiD and {{ngsim/recordings}} NGSIM freeway recordings, the share of highD rows "
     "with a time to collision of 3 s or less is {{highd/m/ttc1/crit:.2f}} % if speeds are assumed constant and {{highd/m/ttcd/crit:.0f}} % if the "
@@ -77,7 +77,7 @@ EN["abstract"] = (
 )
 EN["meta"] = [
     ("C1", f"v{VERSION}"),
-    ("C2", ARCHIVE or REPO),
+    ("C2", (REPO + "/releases/tag/v" + VERSION + " ; " + ARCHIVE) if ARCHIVE else REPO),
     ("C3", "BSD 3-Clause License"),
     ("C4", "git"),
     ("C5", "Python 3; NumPy, PyYAML; optional: matplotlib"),
@@ -104,14 +104,14 @@ EN["sections"]["motivation"] = [
           "the follower for DRAC, MDRAC, DCIA, PSD, MPSD and SDI. The first is geometric and works for crossings and merges; the second is "
           "kinematic and works along a lane. Each is usually implemented, if at all, on its own and for one data set."),
     ("p", "Related open software: Traffic Intelligence [@jackson2013,@saunier] processes road-safety trajectories and motion predictions, and "
-          "CommonRoad-CriMe [@lin2023] collects criticality measures for automated-vehicle scenarios. For rectangles, vectorised Python code "
-          "computes the time to collision, the deceleration rate, the proportion of stopping distance, TAdv, a two-dimensional TTC and the "
+          "CommonRoad-CriMe [@lin2023] collects criticality measures for automated-vehicle scenarios. For rectangles, the vectorised Python code of Jiao is a useful step towards "
+          "large-scale two-dimensional computation: it computes the time to collision, the deceleration rate, the proportion of stopping distance, TAdv, a two-dimensional TTC and the "
           "anticipated collision time [@jiao,@jiao2025,@venthuruthiyil2022]; the emergency index is published with its authors' code [@cheng2025]. "
           "In the source read on 2026-11-08, the TAdv of that code takes corner-to-corner intersections of the velocity lines, returns neither T2 nor TG, "
           "and comes without file readers or a hierarchy of encounters. A documented search on 2026-11-08 of the Python Package Index, GitHub, Crossref "
           "and OpenAlex (log in the repository, docs/lit) found no package that provides TTC, TAdv, T2 and TG of the 2010 paper from one polygon "
           "together with the ten car-following measures and the file formats of the common data sets; it is a search, not a systematic review, "
-          "and the absence of other tools cannot be proved. pyssms is written to close that gap. It (i) reads trajectories, (ii) "
+          "and the absence of other tools cannot be proved. pyssms builds on this work and is written to close the remaining gap. It (i) reads trajectories, (ii) "
           "computes TTC, TAdv, T2 and TG exactly on one conflict polygon, (iii) computes the ten car-following measures, (iv) names the faces "
           "and corners that touch, (v) summarises encounters in a hierarchy, and (vi) ships a small bank of conflict windows for tests and "
           "teaching. Its numbers are checked against the printed procedure, against simulations and against the data sets' own columns."),
@@ -127,7 +127,7 @@ EN["sections"]["architecture"] = [
           "and TTC is where the diagonal enters K. If K misses it (state B, a crossing course), TAdv is the smallest |τ₁ − τ₂| over K, "
           "and T2 and TG are read from the same polygon as the earliest second arrivals. If K is empty within the horizon there is no overlap "
           "(state C). The 32 combinations of the 2010 appendix become one polygon, and parallel paths, standing road users and overlapping bodies need "
-          "no special case. Path-time diagrams of this kind are classical in robot motion planning [@odonnell1989,@kant1986]."),
+          "no special case. The derivation of the inequalities and the tie rules are in docs/methods.md of the repository. Path-time diagrams of this kind are classical in robot motion planning [@odonnell1989,@kant1986]."),
     ("p", "Four design rules follow from the opening example. Every assumption (a reaction time, a deceleration, a horizon, a smoothing window) "
           "is a named argument; where a default exists it is visible in the signature and the docstring, and the functions of ssm1d take reaction "
           "time and decelerations without defaults. A measure that does not exist for a pair is NaN, never zero: TTC is undefined "
@@ -251,13 +251,13 @@ EN["sections"]["examples"] = [
           "We ran it on {{hier_total_recordings}} recordings of six data sets (inD, rounD, uniD, exiD, highD and ten NGSIM periods), "
           "{{hier_total_pairs:,}} candidate pairs of motor vehicles ({fig:hier}). The collision-course share runs from {{hier/highD/A:.0f}} % of pairs on highD "
           "to {{hier/NGSIM/A:.0f}} % on NGSIM, and the shape of the hierarchy differs by site: on exiD {{hier/exiD/B:.0f}} % of pairs are crossing courses "
-          "against {{hier/exiD/A:.0f}} % collision courses. The counts are descriptive and say nothing about which encounters were dangerous."),
+          "against {{hier/exiD/A:.0f}} % collision courses. The counts are descriptive and say nothing about which encounters were dangerous. They also depend on the straight-line prediction: at the roundabout and intersection data sets (rounD, inD, uniD) a vehicle on a curved path is predicted along its current heading, so the shares describe overlap of straight-line futures and not conflicts that actually developed."),
     ("p", "Preprocessing changes the counts. NGSIM's acceleration column differs from the derivative of its speed column by {{ngsim_acc_rms/us101:.1f}} m/s² "
           "(US-101) and {{ngsim_acc_rms/i80:.1f}} m/s² (I-80) root mean square, a defect known from the literature [@thiemann2008,@montanino2015]. "
           "At Peachtree Street the share of pairs reaching TTC below 1.5 s is {{smooth/raw_ttc15:.1f}} % on the data set's own positions and speeds and "
           "{{smooth/smoothed_ttc15:.1f}} % after a causal five-frame smoothing (panel B; the two runs differ in positions and in the speed source), and the share of "
           "pairs with no overlap falls from {{smooth/raw_C:.1f}} % to {{smooth/smoothed_C:.1f}} %. "
-          "The package does not choose for the user: smoothing is a visible step that must be reported."),
+          "In the package smoothing is a separate, visible step, and a study should report whether and how it was applied."),
     ("fig", "hier", "fig6_hierarchy",
      "(A) Candidate pairs of motor vehicles whose future paths overlap, split into levels A and B (TTC and TAdv classes); the labels give the shares of "
      "all pairs in level A and in levels A or B (paths overlap), and the number of pairs. (B) Effect of smoothing on NGSIM, Peachtree Street."),
@@ -322,7 +322,7 @@ FA["abstract"] = (
     "زمان تا برخورد، مزیت زمانی، T2 و فاصلهٔ زمانی دقیقاً از یک چندضلعی محدب تداخل خوانده می‌شوند و ده سنجهٔ دنباله‌روی از روی داستان‌های حرکتی که "
     "فرض می‌کنند پیاده شده‌اند. بسته مسیرهای SSAM، SUMO، VISSIM، LevelX و NGSIM را می‌خواند، هموار می‌کند، جفت‌های نامزد را می‌یابد، رویارویی‌ها را "
     "در یک سلسله‌مراتب مرتب می‌کند، وجه‌ها و گوشه‌های در تماس را نام می‌برد و {{bank/windows}} پنجرهٔ تداخل بریده‌شده از NGSIM را همراه خود دارد. "
-    "تنها به NumPy و PyYAML وابسته است. درستی آزموده می‌شود، نه ادعا: {{tests/total}} آزمون خودکار، "
+    "تنها به NumPy و PyYAML وابسته است. راستی‌آزمایی آن با {{tests/total}} آزمون خودکار، "
     "هم‌خوانی با روش چاپ‌شده روی {{equiv/compared:,}} رویارویی تصادفی و شبیه‌سازی‌های مستقل داستان‌های حرکتی. "
     "با اجرا روی {{highd/recordings}} ضبط highD، {{exid/recordings}} ضبط exiD و {{ngsim/recordings}} ضبط بزرگراهی NGSIM، سهم ردیف‌های highD "
     "با زمان تا برخورد ۳ ثانیه یا کمتر {{highd/m/ttc1/crit:.2f}} % است اگر سرعت‌ها ثابت فرض شوند و {{highd/m/ttcd/crit:.0f}} % اگر فرض شود "
@@ -347,12 +347,12 @@ FA["sections"]["motivation"] = [
           "DRAC، MDRAC، DCIA، PSD، MPSD و SDI. اولی هندسی است و برای تقاطع و ادغام کار می‌کند؛ دومی سینماتیکی است و در امتداد یک خط عبور. هر کدام معمولاً، "
           "اگر اصلاً پیاده شود، جداگانه و برای یک مجموعه‌داده پیاده می‌شود."),
     ("p", "نرم‌افزارهای باز مرتبط: Traffic Intelligence [@jackson2013,@saunier] مسیرها و پیش‌بینی حرکت را برای ایمنی راه پردازش می‌کند و "
-          "CommonRoad-CriMe [@lin2023] سنجه‌های بحرانی‌بودن را برای صحنه‌های خودروی خودران گرد آورده است. برای مستطیل‌ها، کد برداریِ پایتون "
-          "زمان تا برخورد، نرخ کاهش سرعت، نسبت فاصلهٔ توقف، TAdv، TTC دوبعدی و زمان برخورد پیش‌بینی‌شده را حساب می‌کند [@jiao,@jiao2025,@venthuruthiyil2022]؛ "
+          "CommonRoad-CriMe [@lin2023] سنجه‌های بحرانی‌بودن را برای صحنه‌های خودروی خودران گرد آورده است. برای مستطیل‌ها، کد برداریِ پایتونِ جیائو گامی سودمند به‌سوی "
+          "محاسبهٔ دوبعدی در مقیاس بزرگ است: زمان تا برخورد، نرخ کاهش سرعت، نسبت فاصلهٔ توقف، TAdv، TTC دوبعدی و زمان برخورد پیش‌بینی‌شده را حساب می‌کند [@jiao,@jiao2025,@venthuruthiyil2022]؛ "
           "شاخص اضطرار همراه با کد نویسندگانش منتشر شده است [@cheng2025]. در کدی که در 2026-11-08 خوانده شد، TAdv آن کد از تقاطع گوشه‌به‌گوشهٔ خط‌های سرعت "
           "به دست می‌آید، نه T2 برمی‌گرداند و نه TG، و خواننده‌های پرونده یا سلسله‌مراتب رویارویی ندارد. جست‌وجوی مستند در 2026-11-08 در نمایهٔ بسته‌های پایتون، GitHub، "
           "Crossref و OpenAlex (گزارش در مخزن، docs/lit) بسته‌ای نیافت که TTC، TAdv، T2 و TG مقالهٔ ۲۰۱۰ را از یک چندضلعی همراه با ده سنجهٔ دنباله‌روی و قالب‌های پرونده‌های "
-          "مجموعه‌داده‌های رایج بدهد؛ این یک جست‌وجوست نه مرور نظام‌مند، و نبودِ ابزارهای دیگر را نمی‌توان اثبات کرد. pyssms برای پر کردن همین شکاف نوشته شده است. این بسته (الف) مسیرها را می‌خواند، "
+          "مجموعه‌داده‌های رایج بدهد؛ این یک جست‌وجوست نه مرور نظام‌مند، و نبودِ ابزارهای دیگر را نمی‌توان اثبات کرد. pyssms بر پایهٔ این کارها ساخته شده و برای پر کردن شکاف باقی‌مانده نوشته شده است. این بسته (الف) مسیرها را می‌خواند، "
           "(ب) TTC، TAdv، T2 و TG را دقیقاً روی یک چندضلعی تداخل حساب می‌کند، (پ) ده سنجهٔ دنباله‌روی را حساب می‌کند، (ت) وجه‌ها و گوشه‌های در تماس را نام می‌برد، "
           "(ث) رویارویی‌ها را در یک سلسله‌مراتب خلاصه می‌کند و (ج) بانک کوچکی از پنجره‌های تداخل برای آزمون و آموزش همراه دارد. عددهایش با روش چاپ‌شده، با "
           "شبیه‌سازی‌ها و با ستون‌های خود مجموعه‌داده‌ها سنجیده شده‌اند."),
@@ -367,7 +367,7 @@ FA["sections"]["architecture"] = [
           "کاربران در مسیر برخورد هستند (حالت A) و TTC جایی است که قطر وارد K می‌شود. اگر K قطر را قطع نکند (حالت B، مسیر متقاطع)، TAdv کوچک‌ترین |τ₁ − τ₂| روی K است "
           "و T2 و TG از همان چندضلعی به‌عنوان زودترین رسیدن‌های دوم خوانده می‌شوند. اگر K در افق پیش‌بینی تهی باشد هم‌پوشانی نیست (حالت C). "
           "۳۲ ترکیب پیوست مقالهٔ ۲۰۱۰ یک چندضلعی می‌شود و مسیرهای موازی، کاربران ایستاده و بدنه‌های هم‌پوشان به حالت ویژه نیاز ندارند. "
-          "نمودارهای مسیر-زمان از این دست در برنامه‌ریزی حرکت ربات‌ها کلاسیک‌اند [@odonnell1989,@kant1986]."),
+          "استخراج نامعادله‌ها و قاعده‌های شکستن تساوی در docs/methods.md مخزن آمده است. نمودارهای مسیر-زمان از این دست در برنامه‌ریزی حرکت ربات‌ها کلاسیک‌اند [@odonnell1989,@kant1986]."),
     ("p", "چهار قاعدهٔ طراحی از مثال آغازین برمی‌آید. هر فرض (زمان واکنش، کاهش سرعت، افق، پنجرهٔ هموارسازی) آرگومانی نام‌دار است؛ هر جا پیش‌فرضی هست در امضای تابع و "
           "docstring دیدنی است و توابع ssm1d زمان واکنش و کاهش سرعت‌ها را بدون پیش‌فرض می‌گیرند. "
           "سنجه‌ای که برای یک جفت وجود ندارد NaN است، نه صفر: TTC تا وقتی جفت روی مسیر برخورد نباشد تعریف نشده است. هر ماژول با یک مرجع مستقل سنجیده می‌شود، "
@@ -461,12 +461,12 @@ FA["sections"]["examples"] = [
           "آن را روی {{hier_total_recordings}} ضبط از شش مجموعه‌داده (inD، rounD، uniD، exiD، highD و ده دورهٔ NGSIM)، "
           "{{hier_total_pairs:,}} جفت نامزد خودروی موتوری اجرا کردیم ({fig:hier}). سهم مسیر برخورد از {{hier/highD/A:.0f}} % جفت‌ها در highD "
           "تا {{hier/NGSIM/A:.0f}} % در NGSIM است و شکل سلسله‌مراتب بسته به محل فرق می‌کند: در exiD {{hier/exiD/B:.0f}} % جفت‌ها مسیر متقاطع‌اند "
-          "در برابر {{hier/exiD/A:.0f}} % مسیر برخورد. شمارش‌ها توصیفی‌اند و دربارهٔ اینکه کدام رویارویی خطرناک بود چیزی نمی‌گویند."),
+          "در برابر {{hier/exiD/A:.0f}} % مسیر برخورد. شمارش‌ها توصیفی‌اند و دربارهٔ اینکه کدام رویارویی خطرناک بود چیزی نمی‌گویند. به پیش‌بینی خطی هم وابسته‌اند: در مجموعه‌داده‌های میدان و تقاطع (rounD، inD، uniD) خودرویی که روی مسیر خمیده است در امتداد سمت فعلی‌اش پیش‌بینی می‌شود، پس سهم‌ها هم‌پوشانی آیندهٔ مستقیم را نشان می‌دهند و نه برخوردهایی که واقعاً شکل گرفته‌اند."),
     ("p", "پیش‌پردازش شمارش‌ها را تغییر می‌دهد. ستون شتاب NGSIM با مشتق ستون سرعتش به‌اندازهٔ {{ngsim_acc_rms/us101:.1f}} متر بر مجذور ثانیه "
           "(US-101) و {{ngsim_acc_rms/i80:.1f}} متر بر مجذور ثانیه (I-80) جذر میانگین مربعات فرق دارد، نقصی که در ادبیات شناخته است [@thiemann2008,@montanino2015]. "
           "در خیابان Peachtree سهم جفت‌هایی که به TTC کمتر از ۱٫۵ ثانیه می‌رسند روی موقعیت‌ها و سرعت‌های خود مجموعه‌داده {{smooth/raw_ttc15:.1f}} % است و پس از هموارسازی علّی پنج‌قابی "
           "{{smooth/smoothed_ttc15:.1f}} % (پنل B؛ دو اجرا در موقعیت‌ها و در منبع سرعت فرق دارند)، و سهم جفت‌های بدون هم‌پوشانی از {{smooth/raw_C:.1f}} % به {{smooth/smoothed_C:.1f}} % کاهش می‌یابد. "
-          "بسته به‌جای کاربر انتخاب نمی‌کند: هموارسازی گامی آشکار است که باید گزارش شود."),
+          "در این بسته هموارسازی گامی جداگانه و آشکار است و هر مطالعه باید گزارش کند که آیا و چگونه به کار رفته است."),
     ("fig", "hier", "fig6_hierarchy",
      "(A) جفت‌های نامزد خودروهای موتوری که مسیرهای آیندهٔ آن‌ها هم‌پوشان است، تقسیم‌شده به سطح‌های A و B (ردهٔ TTC و TAdv)؛ برچسب‌ها سهم سطح A و سهم سطح‌های A یا B (مسیرها هم‌پوشان) از همهٔ جفت‌ها و تعداد جفت‌ها را می‌دهند. "
      "(B) اثر هموارسازی روی NGSIM، خیابان Peachtree."),

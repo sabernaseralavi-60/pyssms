@@ -115,7 +115,7 @@ front = ("\\begin{document}\n\\renewcommand{\\labelenumii}{\\arabic{enumi}.\\ara
          "\\begin{keyword}\n" + " \\sep ".join(esc(k) for k in L["keywords"]) + "\n\\end{keyword}\n\n\\end{frontmatter}\n\n")
 
 meta = dict(L["meta"])
-rows = {"C1": esc(meta["C1"]), "C2": r"\url{" + meta["C2"] + "}", "C3": esc(meta["C3"]), "C4": esc(meta["C4"]), "C5": esc(meta["C5"]),
+rows = {"C1": esc(meta["C1"]), "C2": " ; ".join(r"\url{" + u.strip() + "}" for u in meta["C2"].split(" ; ")), "C3": esc(meta["C3"]), "C4": esc(meta["C4"]), "C5": esc(meta["C5"]),
         "C6": esc(meta["C6"]), "C7": r"\url{" + meta["C7"] + "}", "C8": esc(meta["C8"])}
 names = {"C1": "Current code version", "C2": "Permanent GitHub link to code/repository used for this code version", "C3": "Legal Code License",
          "C4": "Code versioning system used", "C5": "Software code languages, tools, and services used",

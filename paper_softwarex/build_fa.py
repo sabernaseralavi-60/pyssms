@@ -78,7 +78,7 @@ split = next(i for i, b in enumerate(arch) if b[0] == "h")
 meta_names = {"C1": "نسخهٔ فعلی کد", "C2": "پیوند دائمی GitHub به کد این نسخه", "C3": "مجوز قانونی کد", "C4": "سامانهٔ مدیریت نسخه",
               "C5": "زبان‌ها، ابزارها و خدمات به‌کاررفته", "C6": "نیازهای ساخت، محیط‌های اجرا و وابستگی‌ها", "C7": "پیوند مستندات توسعه (در صورت وجود)",
               "C8": "رایانامهٔ پشتیبانی برای پرسش‌ها"}
-meta_fa = {"C1": "v" + C.VERSION, "C2": C.ARCHIVE or C.REPO, "C3": "BSD 3-Clause License", "C4": "git", "C5": "Python 3; NumPy, PyYAML; optional: matplotlib",
+meta_fa = {"C1": "v" + C.VERSION, "C2": dict(C.EN["meta"])["C2"], "C3": "BSD 3-Clause License", "C4": "git", "C5": "Python 3; NumPy, PyYAML; optional: matplotlib",
            "C6": "Python 3.10 or newer; continuous integration on Linux and Windows with Python 3.10 and 3.13", "C7": C.REPO + "/tree/main/docs",
            "C8": C.SUPPORT_EMAIL}
 meta_rows = "".join(f'<tr><td>{k}</td><td>{meta_names[k]}</td><td dir="ltr">{html.escape(v)}</td></tr>' for k, v in meta_fa.items())

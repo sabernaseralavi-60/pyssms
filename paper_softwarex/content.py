@@ -294,12 +294,10 @@ EN["sections"]["conclusions"] = [
           "against observed outcomes and a two-dimensional version of the car-following measures" + ("" if ZENODO_DOI else ", and an archived release with a persistent identifier") + "."),
 ]
 EN["ack"] = "The authors thank the providers of the highD, inD, rounD, exiD and NGSIM data for making them available for research."
-EN["ai"] = ("During the preparation of this work the authors used Claude (Anthropic) as an assistant for study planning, writing and running analysis code and tests, "
-            "producing figures, literature screening, and drafting and editing the text. After using this tool, the authors reviewed, verified and edited the material "
-            "(code, results, references and text) and take full responsibility for the content of the publication. Numbers in the text are inserted by code "
-            "from the result files, and the references were checked against a bibliographic database.")
+EN["ai"] = ("During the preparation of this work the authors used Claude (Anthropic) for study planning, code and analysis scripts, figures, literature screening, "
+            "and drafting and editing of the text. The authors reviewed, verified and edited the output and take full responsibility for the content of the publication.")
 EN["credit"] = ("Seyed Saber Naseralavi: Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, "
-                "Writing – original draft, Writing – review & editing, Visualization. Akram Mazaheri: [[AUTHOR-TODO: CRediT roles of Akram Mazaheri, to be stated by the authors]].")
+                "Writing – original draft, Writing – review & editing, Visualization. Akram Mazaheri: Validation, Investigation, Data curation, Writing – review & editing.")
 EN["funding"] = "This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors."
 EN["competing"] = "The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper."
 EN["data"] = ("The code is available at " + REPO + " (BSD 3-Clause licence)" + (", and version " + VERSION + " is archived on Zenodo [@pyssms_zenodo]" if ZENODO_DOI else "") + ". The shipped NGSIM windows come from the Federal Highway Administration "
@@ -497,10 +495,9 @@ FA["sections"]["conclusions"] = [
           "داستان حرکتی، پارامترهای آن و هموارسازی موقعیت‌ها. همهٔ آنچه گزارش شده توصیفی است. گام‌های بعدی اعتبارسنجی در برابر پیامدهای مشاهده‌شده، نسخهٔ دوبعدی سنجه‌های دنباله‌روی" + ("" if ZENODO_DOI else " و انتشار بایگانی‌شده با شناسهٔ پایدار") + " است."),
 ]
 FA["ack"] = "نویسندگان از فراهم‌کنندگان داده‌های highD، inD، rounD، exiD و NGSIM که آن‌ها را برای پژوهش در دسترس گذاشته‌اند سپاسگزارند."
-FA["ai"] = ("در تهیهٔ این اثر نویسندگان از Claude (Anthropic) به‌عنوان دستیار برای برنامه‌ریزی مطالعه، نوشتن و اجرای کد تحلیل و آزمون، تولید شکل‌ها، غربالگری منابع، و پیش‌نویس و ویرایش متن استفاده کردند. "
-            "پس از استفاده از این ابزار، نویسندگان مواد تولیدشده (کد، نتایج، منابع و متن) را بازبینی، راستی‌آزمایی و ویرایش کردند و مسئولیت کامل محتوای اثر را می‌پذیرند. "
-            "عددهای متن را کد از پرونده‌های نتیجه وارد می‌کند و ارجاع‌ها با یک پایگاه کتابشناختی سنجیده شده‌اند.")
-FA["credit"] = ("سید صابر ناصرعلوی: مفهوم‌پردازی، روش‌شناسی، نرم‌افزار، اعتبارسنجی، تحلیل رسمی، پژوهش، نگهداری داده، نگارش پیش‌نویس، نگارش بازبینی و ویرایش، تصویرسازی. اکرم مظاهری: [[AUTHOR-TODO: CRediT roles of Akram Mazaheri, to be stated by the authors]].")
+FA["ai"] = ("در تهیهٔ این اثر نویسندگان از Claude (Anthropic) برای برنامه‌ریزی مطالعه، کد و اسکریپت‌های تحلیل، شکل‌ها، غربالگری منابع و پیش‌نویس و ویرایش متن استفاده کردند. "
+            "نویسندگان خروجی را بازبینی، راستی‌آزمایی و ویرایش کردند و مسئولیت کامل محتوای اثر را می‌پذیرند.")
+FA["credit"] = ("سید صابر ناصرعلوی: مفهوم‌پردازی، روش‌شناسی، نرم‌افزار، اعتبارسنجی، تحلیل رسمی، پژوهش، نگهداری داده، نگارش پیش‌نویس، نگارش بازبینی و ویرایش، تصویرسازی. اکرم مظاهری: اعتبارسنجی، پژوهش، نگهداری داده، نگارش – بازبینی و ویرایش.")
 FA["funding"] = "این پژوهش هیچ کمک مالی ویژه‌ای از نهادهای تأمین مالی در بخش دولتی، تجاری یا غیرانتفاعی دریافت نکرده است."
 FA["competing"] = "نویسندگان اعلام می‌کنند هیچ منافع مالی یا روابط شخصی شناخته‌شده‌ای که بتواند بر کار گزارش‌شده در این مقاله اثر گذاشته باشد ندارند."
 FA["data"] = ("کد در " + REPO + " (مجوز BSD 3-Clause) در دسترس است" + (" و نسخهٔ " + VERSION + " در Zenodo بایگانی شده است [@pyssms_zenodo]" if ZENODO_DOI else "") + ". پنجره‌های همراه NGSIM از داده‌های NGSIM اداره فدرال بزرگراه‌ها با مجوز اصلاح‌شدهٔ Creative Commons Attribution 2.0 آمده‌اند "

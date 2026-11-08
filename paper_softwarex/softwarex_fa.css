@@ -1,0 +1,38 @@
+
+@page { size: A4; margin: 22mm 20mm 22mm 20mm;
+  @top-right { content: "pyssms: نرم‌افزار سنجه‌های جانشین ایمنی"; font: 9pt 'B Nazanin', 'Vazirmatn', serif; color: #444; }
+  @top-left { content: "ناصرعلوی"; font: 9pt 'B Nazanin', 'Vazirmatn', serif; color: #444; }
+  @bottom-center { content: counter(page); font: 10pt 'Times New Roman', serif; color: #222; } }
+@page :first { @top-left { content: none; } @top-right { content: none; } }
+html { hyphens: manual; }
+body { font-variant-ligatures: none; direction: rtl; font-family: 'B Nazanin', 'Vazirmatn', 'Times New Roman', serif; font-size: 12pt; line-height: 1.7; margin: 0; color: #000; }
+header { text-align: center; margin-bottom: 6pt; }
+h1.title { font-size: 18pt; line-height: 1.5; margin: 0 0 8pt 0; }
+p.author { font-size: 13pt; margin: 0; text-align: center; }
+p.aff { font-size: 10pt; color: #333; margin: 1pt 8mm; text-align: center; line-height: 1.55; }
+section.abstract { border-top: 1pt solid #000; border-bottom: 1pt solid #000; margin: 6pt 0 8pt 0; padding: 2pt 0 4pt 0; }
+section.abstract h2 { margin: 3pt 0 1pt 0; font-size: 12.4pt; }
+section.abstract p { font-size: 10.8pt; line-height: 1.6; margin: 2pt 0; }
+h2 { font-size: 14pt; margin: 14pt 0 3pt 0; break-after: avoid; }
+h3 { font-size: 11.8pt; margin: 7pt 0 1pt 0; display: inline; font-weight: bold; }
+h3.sub { display: block; font-size: 12.4pt; margin: 9pt 0 2pt 0; }
+h3 + p { display: inline; }
+p { margin: 0 0 4pt 0; text-align: justify; orphans: 2; widows: 2; }
+.hn { font-family: 'Segoe UI', Arial, sans-serif; unicode-bidi: isolate; }
+.lat { direction: ltr; unicode-bidi: isolate; font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.93em; }
+.num { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.93em; unicode-bidi: isolate; direction: ltr; }
+.cite { font-family: 'Times New Roman', serif; font-size: 10pt; }
+a { color: #000; text-decoration: none; }
+pre { direction: ltr; text-align: left; font-family: Consolas, 'Courier New', monospace; font-size: 8.6pt; line-height: 1.32; background: #f5f6f8; border: 0.6pt solid #c8ced6; padding: 5pt 7pt; margin: 4pt 0 8pt 0; break-inside: avoid; white-space: pre; }
+figure { margin: 8pt 0 10pt 0; break-inside: avoid; page-break-inside: avoid; }
+img { display: block; margin: 3pt auto; max-width: 100%; }
+figcaption { font-size: 10.2pt; line-height: 1.5; text-align: center; margin: 2pt 6mm 0 6mm; }
+table.tn { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 6pt 0; border-top: 1pt solid #000; border-bottom: 1pt solid #000; break-inside: avoid; }
+table.tn caption { caption-side: top; text-align: right; font-size: 9.4pt; padding-bottom: 3pt; }
+table.tn th, table.tn td { padding: 2pt 5pt; text-align: right; vertical-align: top; border-bottom: 0.4pt solid #bbb; }
+table.tn th { border-bottom: 0.8pt solid #000; }
+table.meta { border-collapse: collapse; width: 100%; font-size: 9.6pt; margin: 3pt 0 6pt 0; border-top: 1pt solid #000; border-bottom: 1pt solid #000; break-inside: avoid; }
+table.meta th, table.meta td { padding: 2pt 6pt; text-align: right; vertical-align: top; border-bottom: 0.4pt solid #bbb; }
+table.meta td[dir=ltr] { text-align: left; font-family: 'Times New Roman', serif; word-break: break-all; }
+ol.refs { font-size: 8.4pt; line-height: 1.3; font-family: 'Times New Roman', serif; text-align: left; padding-left: 20pt; margin: 2pt 0; }
+ol.refs li { margin: 0 0 2pt 0; word-break: break-word; }

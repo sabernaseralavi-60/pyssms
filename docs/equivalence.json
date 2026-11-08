@@ -1,0 +1,135 @@
+{
+  "version": "0.1.0",
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "n": 1000000,
+  "seed": 2026,
+  "horizon": 60.0,
+  "kinds": {
+    "generic": {
+      "n": 1000000,
+      "initial_overlap": 12305,
+      "not_covered_by_appendix": 0,
+      "compared": 987695,
+      "mismatch": {
+        "ttc": 0,
+        "tadv": 0,
+        "t2": 0,
+        "tg": 0,
+        "first": 0
+      },
+      "states": {
+        "A": 315080,
+        "B": 627161,
+        "C": 57759
+      },
+      "seconds_K": 5.83,
+      "seconds_appendix_vectorised": 20.69,
+      "printed_eq8_9_ttc_found": 8290,
+      "printed_eq8_9_ttc_correct": 0,
+      "true_collision_courses": 302775
+    },
+    "axis_aligned": {
+      "n": 100000,
+      "initial_overlap": 2125,
+      "tol=0": {
+        "compared": 49731,
+        "mismatch": {
+          "ttc": 6730,
+          "tadv": 3200,
+          "t2": 5723,
+          "tg": 0,
+          "first": 3200
+        }
+      },
+      "tol=1e-09": {
+        "compared": 49731,
+        "mismatch": {
+          "ttc": 0,
+          "tadv": 0,
+          "t2": 0,
+          "tg": 0,
+          "first": 0
+        }
+      }
+    },
+    "parallel": {
+      "n": 100000,
+      "covered_by_appendix": 0,
+      "states": {
+        "A": 43583,
+        "B": 3788,
+        "C": 52629
+      },
+      "oracle_cases": 300,
+      "oracle_step": 0.02,
+      "oracle_horizon": 30.0,
+      "oracle": {
+        "ttc": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.019901467448920407
+        },
+        "tadv": {
+          "agree_within_grid": 299,
+          "max_abs_diff": 0.019814011603846104
+        },
+        "tg": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.019814011603846104
+        }
+      }
+    },
+    "stopped": {
+      "n": 100000,
+      "covered_by_appendix": 0,
+      "states": {
+        "A": 69914,
+        "B": 0,
+        "C": 30086
+      },
+      "oracle_cases": 300,
+      "oracle_step": 0.02,
+      "oracle_horizon": 30.0,
+      "oracle": {
+        "ttc": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.019886278835656634
+        },
+        "tadv": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.0
+        },
+        "tg": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.019886278835656634
+        }
+      }
+    },
+    "overlap": {
+      "n": 100000,
+      "covered_by_appendix": 100000,
+      "states": {
+        "A": 99819,
+        "B": 33,
+        "C": 148
+      },
+      "oracle_cases": 300,
+      "oracle_step": 0.02,
+      "oracle_horizon": 30.0,
+      "oracle": {
+        "ttc": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.01770714143422366
+        },
+        "tadv": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.02393759971595677
+        },
+        "tg": {
+          "agree_within_grid": 300,
+          "max_abs_diff": 0.01830523610589313
+        }
+      }
+    }
+  }
+}

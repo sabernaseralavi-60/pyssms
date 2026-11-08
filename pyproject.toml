@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyssms"
+version = "0.1.0"
+description = "Continuous surrogate safety indicators for road-user encounters: TTC, Time Advantage, T2 and Time Gap for arbitrary approach angles, computed exactly on a time-time conflict polygon."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+keywords = ["surrogate safety measures", "time to collision", "post-encroachment time", "traffic conflict", "road safety", "trajectory data", "NGSIM", "highD"]
+
+dependencies = [
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/sabernaseralavi-60/pyssms"
+Issues = "https://github.com/sabernaseralavi-60/pyssms/issues"
+Changelog = "https://github.com/sabernaseralavi-60/pyssms/blob/main/CHANGELOG.md"
+
+# [project.scripts]
+# pyssms = "pyssms.cli:main"
+
+[project.optional-dependencies]
+plot = ["matplotlib"]
+dev = ["pytest>=8", "pytest-cov", "ruff", "mypy", "types-PyYAML", "build", "twine"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyssms"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -m 'not data and not network'"
+markers = [
+    "data: needs the real data files (not available in CI)",
+    "network: needs internet access (manual only)",
+]
+
+[tool.ruff]
+extend-exclude = ["tools/figkit.py"]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "D"]
+ignore = ["D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"tools/*" = ["D"]
+"tools/paper_figures.py" = ["D", "E501"]
+"tools/paper_flowchart_fa.py" = ["D", "E501"]
+"tools/fluid_pilot.py" = ["D", "E501"]
+"tools/paper_numbers.py" = ["D", "E501"]
+"tools/levelx_diamond.py" = ["D", "E501"]
+"tools/levelx_ssm1d.py" = ["D", "E501"]
+"tools/levelx_ssm1d_report.py" = ["D", "E501"]
+"tools/build_note.py" = ["D", "E501"]
+"tools/levelx_preonset.py" = ["D", "E501", "B905"]
+"tools/levelx_preonset_diag.py" = ["D", "E501", "B905"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+files = ["src"]
+
+# Untyped third-party libraries: add them here instead of loosening strict mode.
+[[tool.mypy.overrides]]
+module = ["matplotlib", "matplotlib.*"]  # optional plotting dependency, not installed in CI
+ignore_missing_imports = true

@@ -1,0 +1,17 @@
+# Replace with the published figures of your target study. Fields are documented in
+# ~/.claude/skills/package-validate/SKILL.md. Every target that is not "reproduced" needs a note.
+source: example
+title: "Example validation set (replace me)"
+citation: "Author, A. (2000). A published study. Journal."
+targets:
+  - {id: total, table: "1", label: "Total (thousands)", scale: 1, decimals: 0, published: 10, moe: null, compute: total, expected: reproduced}
+  - id: ratio
+    table: "2"
+    label: "A ratio that does not reproduce"
+    scale: 1
+    decimals: 2
+    published: 1.50
+    moe: null
+    compute: ratio
+    expected: not_reproduced
+    note: "We obtain 1.62 against the printed 1.50; cause not established."

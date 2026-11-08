@@ -1,0 +1,10 @@
+site_name: pyssms
+site_description: Continuous surrogate safety indicators for road-user encounters: TTC, Time Advantage, T2 and Time Gap for arbitrary approach angles, computed exactly on a time-time conflict polygon.
+repo_url: https://github.com/sabernaseralavi-60/pyssms
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Validation: validation.md
+  - Trajectory input and scenarios: io_and_scenarios.md
+  - Data notes: data_notes.md

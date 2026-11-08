@@ -1,0 +1,5 @@
+One package for 2-D TTC indicators and ten car-following measures
+One exact conflict polygon replaces 32 corner-side combinations
+Readers for SSAM, SUMO, VISSIM, LevelX and NGSIM trajectories
+143 tests; 987,695 random encounters compared
+Critical share depends on the story: 0.06 % or 26 %

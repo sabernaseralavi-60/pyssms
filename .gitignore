@@ -1,0 +1,48 @@
+# data and caches: never commit microdata or third-party copyrighted PDFs
+local_data/
+data_raw/
+*.csv
+*.parquet
+*.feather
+*.arrow
+*.zip
+*.sas7bdat
+*.xpt
+*.dbf
+*.RData
+*.rds
+lit/*.pdf
+.cache/
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+
+# local figures made from datasets without a declared licence
+figures_local/
+paper/manuscript.html
+paper/manuscript_fa.html
+
+# per-recording run files (aggregates, resumable runs)
+runs_local/
+
+# logs of long runs
+runs_*.log
+.venv310/
+
+# paper_softwarex build leftovers
+paper_softwarex/latex/*.aux
+paper_softwarex/latex/*.log
+paper_softwarex/latex/*.out
+paper_softwarex/latex/*.synctex.gz
+paper_softwarex/__pycache__/
+paper_softwarex/listing_test.log
+paper_softwarex/latex/*.spl

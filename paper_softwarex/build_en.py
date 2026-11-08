@@ -24,6 +24,8 @@ import content as C
 HERE = Path(__file__).resolve().parent
 KIT = Path.home() / ".claude" / "research-kit" / "journals" / "softwarex"
 OUT = HERE / "latex"
+import shutil as _sh
+_sh.rmtree(OUT / "figures", ignore_errors=True)  # no stale figures from earlier numbering in the submission zip
 (OUT / "figures").mkdir(parents=True, exist_ok=True)
 TEMPLATE = (KIT / "softwarex-osp-template.tex").read_text(encoding="utf8")
 L = C.EN

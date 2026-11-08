@@ -46,3 +46,9 @@ paper_softwarex/latex/*.synctex.gz
 paper_softwarex/__pycache__/
 paper_softwarex/listing_test.log
 paper_softwarex/latex/*.spl
+
+# third-party guide pages saved by the author (not ours to redistribute)
+paper_softwarex/Guide for authors*.pdf
+
+# submission folder: guide text (third party) is kept out of git
+paper_softwarex/submission/**/lit/

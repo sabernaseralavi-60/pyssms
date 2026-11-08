@@ -56,7 +56,7 @@ REFS = {
 }
 if ZENODO_DOI:
     REFS["pyssms_zenodo"] = (f"Naseralavi SS, Mazaheri A. pyssms: surrogate safety indicators for road-user encounters on a time-time conflict polygon [software]. "
-                             f"Version {VERSION}. Zenodo; 2026. https://doi.org/{ZENODO_DOI}.")
+                             f"Version {VERSION}. Zenodo; 2026 Nov 8. https://doi.org/{ZENODO_DOI}.")
 
 # ----------------------------------------------------------------------------------------------------------------- English
 EN: dict = {}
